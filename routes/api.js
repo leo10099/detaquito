@@ -82,6 +82,11 @@ router.get(
   catchErrors(tourneyController.getUserTourneys)
 );
 
+router.get(
+  '/api/fetch/tourney/:_id',
+  catchErrors(tourneyController.getTourneyData)
+);
+
 router.post(
   '/api/create/tourney',
   catchErrors(tourneyController.createTourney)

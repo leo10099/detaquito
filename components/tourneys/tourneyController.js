@@ -2,6 +2,13 @@ const mongoose = require('mongoose');
 const Tourney = mongoose.model('Tourney');
 const ObjectID = mongoose.Types.ObjectId;
 
+exports.getTourneyData = async (req, res) => {
+  const { _id } = req.params;
+  console.log(_id);
+  const tourney = await Tourney.findById({ _id });
+  res.status(200).json({ tourney });
+};
+
 exports.createTourney = async (req, res) => {
   const owner = req.user._id;
   const { name } = req.body;

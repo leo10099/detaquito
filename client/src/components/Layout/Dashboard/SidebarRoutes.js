@@ -9,6 +9,7 @@ import TournamentsHome from '../Tourneys/';
 import TournamentsNew from '../Tourneys/NewTourney/';
 import TournamentsJoin from '../Tourneys/JoinTourney/';
 import TournamentsSingle from '../Tourneys/SingleTourney';
+import TournamentsAdmin from '../Tourneys/AdminTourney';
 
 const sidebar = [
   {
@@ -28,6 +29,11 @@ const sidebar = [
     main: () => <h2>Rankings</h2>
   },
   {
+    path: '/tournament/admin/:tourney',
+    main: props => <TournamentsAdmin {...props} />,
+    exact: true
+  },
+  {
     path: '/tournament/:tourney',
     main: props => <TournamentsSingle {...props} />,
     exact: true
@@ -39,11 +45,13 @@ const sidebar = [
   },
   {
     path: '/newTourney',
-    main: props => <TournamentsNew {...props} />
+    main: props => <TournamentsNew {...props} />,
+    exact: true
   },
   {
     path: '/joinTourney',
-    main: props => <TournamentsJoin {...props} />
+    main: props => <TournamentsJoin {...props} />,
+    exact: true
   }
 ];
 

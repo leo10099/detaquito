@@ -35,16 +35,18 @@ export class Tournaments extends Component {
         {index === 'confirmed' && (
           <Link to={`/tournament/${id}`} className="text-dark">
             <span>
-              Detalle &nbsp;{' '}
+              Detalle &nbsp;
               <i className="fa fa-search baseline text-primary" />
             </span>
           </Link>
         )}
         {tourneyOwner === this.props.auth._id && (
-          <span>
-            Administrar &nbsp;
-            <i className="fa fa-wrench text-primary" />
-          </span>
+          <Link to={`/tournament/admin/${id}`} className="text-dark">
+            <span>
+              Gestionar &nbsp;
+              <i className="fa fa-wrench text-primary" />
+            </span>
+          </Link>
         )}
         {tourneyOwner !== this.props.auth._id && (
           <span>
