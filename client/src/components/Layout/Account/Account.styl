@@ -1,0 +1,116 @@
+@import "../../../styles/partials/_theme.styl"
+@import "../../../styles/partials/_fonts.styl"
+@import "../../../styles/partials/_responsiveness.styl"
+@import "../../../styles/partials/_forms.styl"
+
+#Account
+  display grid
+  color $white
+  height 100%
+  @media screen and (min-height: $tablet)
+    height 100vh !important
+  @media screen and (min-width:$tablet)
+    grid-template-rows 100px 100px 1fr
+    background url('/static/img/bg/register-bg-desktop.jpg')
+    background-size cover
+    background-position top
+    padding-left 2rem
+    padding-right 2rem
+    background-position bottom
+  @media screen and (max-width:$tablet)
+    grid-template-rows 230px 1fr
+    background url('/static/img/bg/register-bg-mobile.jpg')
+    background-size cover
+    background-position: top
+    font-weight bold
+  h1
+    font-weight normal
+    font-family "Rustica" !important
+    @media screen and (min-width:$tablet)
+      padding-bottom 2rem
+      font-size 3.2rem
+    @media screen and (max-width:$tablet)
+      font-size 2.8rem
+      color $white
+
+
+form
+  text-align: center
+  @media screen and (min-width:$tablet)
+    width: 600px
+
+.account__loader
+  @media screen and (min-width:$tablet)
+    position relative
+    margin 20vh auto
+  @media screen and (max-width:$tablet)
+    position relative
+    margin auto
+    padding-bottom 2rem
+
+.account__feedback
+  color $dark
+  font-size: 1rem
+  display: block
+  text-align: center !important
+  line-height: 1.4
+
+.account__container
+  text-align center
+  justify-content center
+  @media screen and (max-width:$tablet)
+    padding 2rem
+    margin-bottom 5rem
+.account-form__container
+  @media screen and (max-width:$tablet)
+    max-width 100%
+    height 100%
+  display flex
+  height 100%
+  align-items center
+  justify-content center
+.account__button-container
+  margin-top 4rem
+.account__continue__button
+    @media screen and (max-width:$tablet)
+      margin-top 1rem
+      display block
+
+
+.account__button-container button
+  display inline-block
+  margin 0 auto
+  &:nth-child(2)
+    margin-top 2rem
+    display block
+    width: 10px
+
+  @media screen and (min-width:$tablet)
+    margin-left 2rem
+    margin-right 2rem
+
+.account__avatar
+  max-width 80px
+
+.info-container
+  @media screen and (min-width:$tablet)
+    height 100%
+
+.avatar__container
+  padding 0
+  margin 2rem auto
+  display grid
+  grid-auto-flow: column
+  @media screen and (min-width:$tablet)
+    max-width 550px
+    grid-gap 2rem
+    grid-template-columns: 100px minmax(min-content,max-content) minmax(100px,130px) minmax(min-content,max-content)
+    align-items: center
+  @media screen and (max-width:$tablet)
+    max-width 300px
+    align-items: flex-start !important
+    margin-top 1rem
+    grid-template-columns 1fr
+    grid-template-rows: 50px minmax(min-content,max-content) 100px 0px
+  align-items: center
+  justify-content: space-around

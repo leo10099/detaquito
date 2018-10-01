@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  .container
+    H1 CONFIGURAR FECHA
+    form(method="POST" name="configFecha")
+      #form-container
+        .form-group
+          label(for="round") Establecer fecha actual
+          input(type="number" name="round" class="form-control")
+        .form-group
+          label(for="deadline") Establecer deadline para pronosticar
+          input(type="date" name="deadline" class="form-control")
+        input.button(type="submit" value="Enviar ➡" class="btn")

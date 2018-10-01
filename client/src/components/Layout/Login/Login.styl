@@ -1,0 +1,58 @@
+@import '../../../styles/partials/_theme.styl'
+@import "../../../styles/partials/_fonts.styl"
+@import "../../../styles/partials/_responsiveness.styl"
+
+#Login
+  display grid
+  align-items center
+  justify-items center
+  color $white
+  height 100vh
+  @media screen and (max-width:$tablet)
+    grid-template-rows 100px 100px 300px
+    background url('/static/img/bg/register-bg-mobile.jpg')
+    font-size: 1.2rem
+    background-position: top
+    padding-left 2rem
+    padding-right 2rem
+    .login__btn-panel
+      margin-top 2rem
+    .login__subtitle
+      margin-top 2rem
+      line-height 1.5
+      text-align center
+  @media screen and (max-width:$tablet) and (orientation: landscape)
+    height 530px
+    color $white
+  @media screen and (min-width:$tablet)
+    grid-template-rows 200px 200px 200px
+    background url('/static/img/bg/register-bg-desktop.jpg')
+    background-size cover
+    .login__btn-panel
+      margin-top 2rem
+    .login__subtitle
+      margin-top 3rem
+      width 75%
+      line-height 2
+      text-align center
+  h1
+    padding-top 2rem
+    margin-bottom 2rem
+    font-weight: normal
+    font-family "Rustica" !important
+    @media screen and (min-width:$tablet)
+      font-size 3.2rem
+    @media screen and (max-width:$tablet)
+      font-size 2.5rem
+      color $white
+  button
+    @media screen and (min-width:$tablet)
+      margin-left 1rem
+      margin-right 1rem
+    font-size 0.9rem
+    background $primary
+    color white
+    margin-top: 1rem
+    @media screen and (max-width:$tablet)
+      display block
+      width 100%

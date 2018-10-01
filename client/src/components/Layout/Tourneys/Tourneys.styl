@@ -1,0 +1,45 @@
+@import "../../../styles/partials/_theme.styl"
+@import "../../../styles/partials/_responsiveness.styl"
+
+#Tournaments
+  display grid
+  justify-content center
+  align-items: center
+  @media screen and (min-height: $tablet)
+    height 100vh
+.dashboard__tournaments__button-panel > *
+  margin-left 2rem
+  margin-right 2rem
+.dashboard__tournaments__button-panel
+  margin-top 2rem
+  margin-bottom 2rem
+  margin-left auto
+  margin-right auto
+  display block
+.dashboard__tornaments__card
+  opacity 0.9
+  margin 0 auto
+  @media screen and (max-width: $tablet)
+    width 300px
+    font-size 0.8rem
+.dashboard__tournaments__list
+  display grid
+  grid-template-columns repeat(3, 1fr)
+  justify-content center
+  text-align center
+  color $dark
+  grid-gap 0.9rem
+.dashboard__tournaments__list span
+  display block !important
+  display flex
+  align-content: center
+  line-height: 2
+.dashboard__tournaments__list-th
+  font-size: 1.2rem
+  background-color $primary
+  padding 4px
+  color $white
+.dashboard__tournaments__list-td
+  display flex
+  justify-content center
+  align-items: center

@@ -1,0 +1,43 @@
+@import "../../../../styles/partials/_theme.styl"
+@import "../../../../styles/partials/_responsiveness.styl"
+
+.dashboard__sidebar-nav__desktop
+  @media screen and (min-width: $tablet)
+    height 50vh
+    border-radius: 1rem
+    padding-left 1rem
+    padding-right 1rem
+    ul
+      margin 0
+  @media screen and (max-width: $tablet)
+    display: none
+.dashboard__sidebar-nav__mobile
+  height 100%
+  @media screen and (min-width: $tablet)
+    display none
+.dashboard__sidebar-nav__items
+  display grid
+  height 100%
+  width 100%
+  align-items center
+  padding 0
+  @media screen and (max-width: $tablet)
+    margin auto
+    line-height: 2.5rem
+.dashboard__sidebar-nav__item
+  list-style none
+  text-align center
+  font-size 1.2rem
+  color $black !important
+  justify-items: center
+.dashboard__sidebar-nav__item > a
+  @media screen and (max-width: $tablet)
+    color $black
+  &:hover
+    color darken($secondary, 15%)
+    @media screen and (max-width: $tablet)
+      color $dark
+
+
+
+

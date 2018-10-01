@@ -1,0 +1,113 @@
+@import "./styles/partials/_normalize.styl"
+@import "./styles/partials/_theme.styl"
+@import "./styles/partials/_responsiveness.styl"
+@import "./styles/partials/_fonts.styl"
+
+
+
+
+body
+  margin 0
+  font-family 'Poppins', sans-serif
+  font-size 1rem
+  text-rendering: optimizeLegibility
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+h1
+  font-size 2em
+  margin 0.67em 0
+
+b,strong
+  font-weight bolder
+
+a
+  text-decoration none
+  color $secondary
+a:hover
+  color darken($secondary,20%)
+a:visited
+  text-decoration none
+  color $secondary
+
+.pointer
+  cursor pointer
+
+.logo
+  @media screen and (max-width: $tablet)
+    max-width 175px
+
+.logo:hover
+  transition all 1.5s ease-in-out
+  animation latidos 1s forwards
+  cursor pointer
+
+.text-primary
+  color $primary
+
+.text-secondary
+  color $secondary
+
+.text-danger
+  color $danger
+
+.text-white
+  color $white
+
+.text-black
+  color $black !important
+
+.no-padding
+  padding: 0 !important
+
+.no-margin
+  margin: 0 !important
+
+@keyframes latidos
+  0%
+    -webkit-transform: scale(1)
+  25%
+   -webkit-transform: scale(0.9)
+  50%
+    -webkit-transform: scale(1)
+  75%
+    -webkit-transform: scale(0.9)
+  100%
+    -webkit-transform: scale(1)
+
+button
+  font-family: 'Poppins'
+
+.button-icon
+  color $secondary
+  font-size: 1rem
+
+.fa
+  vertical-align: middle !important
+.baseline
+  vertical-align: baseline !important
+
+.toast
+  background-color: #030303
+  text-align: center !important
+  line-height: 1.5 !important
+
+.toast-success
+  background-color: $secondary !important
+  color: $black !important
+  text-align: center !important
+  line-height: 1.5 !important
+
+
+.toast-error
+  background-color: $danger !important
+  text-align: center !important
+  line-height: 1.5 !important
+
+.loading-container
+  margin auto
+  text-align center
+  height 100vh
+  display flex
+  justify-content: center
+  align-items: center

@@ -1,0 +1,86 @@
+@import "../../../styles/partials/_theme.styl"
+@import "../../../styles/partials/_responsiveness.styl"
+@import "../../../styles/partials/_fonts.styl"
+
+#Dashboard
+  display grid
+  grid-template-rows 100px 1fr
+  background url('/static/img/bg/dashboard-desktop.jpg')
+  background-position bottom
+  background-size: cover
+  align-items: center
+  @media screen and (max-width:$tablet)
+    grid-template-rows: 100px 1fr
+    height 100%
+  * img
+    height 50px
+    vertical-align middle
+    @media screen and (max-width:$tablet)
+      height 33px
+  .dashboard__title
+    font-family "Rustica" !important
+    color $white
+    display block
+    text-align: center
+    font-weight normal
+    font-family "Rustica" !important
+    letter-spacing: 5px
+    @media screen and (min-width:$tablet)
+      font-size 3.2rem
+      color $white
+    @media screen and (max-width:$tablet)
+      font-size 1.8rem
+      line-height: 4rem
+      color $white
+  .dashboard__lead
+    color $secondary
+    text-align center
+    line-height:2
+    max-width: 75%
+    margin 0rem auto
+    margin-bottom 2rem
+
+    @media screen and (max-width:$tablet) and (max-height: 480px)
+      margin-top -1.5rem !important
+  .dashboard__subtitle
+    color darken($secondary,15%)
+    display block
+    text-align: center
+    font-weight normal
+    font-family "Rustica" !important
+    letter-spacing: 5px
+    @media screen and (min-width:$tablet)
+      font-size 2.4rem
+    @media screen and (max-width:$tablet)
+      font-size 1.5rem
+      line-height: 1.5rem
+    @media screen and (max-width:$tablet) and (min-height: 480px)
+      margin-bottom 1rem
+
+
+.dashboard__container
+  display grid
+  align-items center
+  justify-content center
+  @media screen and (min-width: $tablet)
+    width $desktop
+    margin 0 auto
+    grid-template-columns: max-content 1fr
+  @media screen and (max-width: $tablet)
+    width 320px
+    margin 0 auto
+    grid-template-rows: minmax(min-content,max-content) 1fr
+
+// Start
+.dashboard__start
+  display grid
+  justify-content center
+  align-content center
+  height 100vh
+.dashboard__start > *
+  padding 2rem
+.dashboard__news
+  color $white
+  @media screen and (max-width:$tablet)
+    line-height: 2rem
+    text-align: center

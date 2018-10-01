@@ -1,0 +1,57 @@
+@import "../../../styles/partials/_theme.styl"
+@import "../../../styles/partials/_responsiveness.styl"
+
+#Home
+  background: $primary
+  height: 100vh
+  display: grid
+  grid-template-rows 100px 1fr
+  grid-template-columns 1fr
+  justify-content center
+  @media screen and (min-width: $tablet)
+    background-image url('/static/img/bg/home-desktop.jpg')
+    background-position top
+    background-size cover
+  @media screen and (max-width:$tablet)
+    background-image url('/static/img/bg/home-mobile.jpg')
+    background-position left top
+    background-size cover
+    min-height: 640px;
+    @media screen and (max-width: $tablet) and (orientation landscape)
+      height 100%
+      background-position top
+      background-size cover
+  .home__subtitle
+    word-wrap break-word
+    font-family 'Rustica'
+    text-align center
+    -ms-transform skew(0, -3deg)
+    transform skew(0, -3deg)
+    line-height 1.1
+    color $white
+    @media screen and (min-width: $tablet)
+      font-size 2rem
+      letter-spacing:0.2rem
+      width 33%
+    @media screen and (max-width: $tablet)
+      font-size 1.5rem
+      max-width: 75%
+      letter-spacing:0.2rem
+      margin-bottom -2rem
+  .home__grid
+    display grid
+    justify-items center
+    @media screen and (min-width: $tablet)
+      grid-template-rows: 260px 210px
+      padding-top 2.5rem
+  .home__buton-container
+    font-family 'Poppins', sans-serif
+    text-align center
+  @media screen and (max-width: 768px)
+    .home__buton-container > *
+      margin auto 2rem
+  .home__buton-container > *
+    @media screen and (min-width: 768px)
+      margin auto 2rem
+  button
+    font-weight: bold

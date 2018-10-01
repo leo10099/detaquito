@@ -1,0 +1,135 @@
+@import './_theme.styl'
+@import './_responsiveness.styl'
+
+input
+  margin 1rem auto
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='url'],
+textarea,
+select
+  margin 1rem auto
+  appearance none
+  background-color transparent
+  border 2px solid lighten($secondary, 70%)
+  border-radius 5px
+  font-weight bolder
+  box-sizing inherit
+  height 60px
+  width: 200px
+  font-family: "Poppins"
+  &:focus
+    border-color $secondary
+    outline 0
+  &:invalid
+    border-color $danger
+    outline 0
+
+select
+  background url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#d1d1d1" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>') center right no-repeat
+  font-weight bolder
+  color $primary
+  vertical-align: middle
+
+textarea
+  min-height 6.5rem
+
+label,
+legend
+  font-size 1rem
+  font-weight bold !important
+  margin-bottom .5rem
+  color $dark
+  text-align: center !important
+  @media screen and (max-width: $tablet)
+    display block !important
+
+fieldset
+  border-width 0
+  padding 0
+
+input[type='checkbox'],
+input[type='radio']
+  display inline
+
+.file-selected
+  font-size 0.7rem !important
+  max-width 75%
+  padding-right 1rem
+  text-align: center
+  word-break: break-all
+
+span.info
+  font-size 0.8rem
+  color $dark
+  display block
+  padding-top 0.3rem
+  width: 80%
+  margin 0 auto
+  line-height: 1.2rem
+
+.label-inline
+  display inline-block
+  font-weight normal
+  padding 0.1rem
+  font-size 1rem !important
+  @media screen and (min-width: $tablet)
+    padding-right 2rem
+
+input[type='text'],select
+  color $dark !important
+  padding 1rem
+  font-weight normal
+
+
+.input-file
+  width: 0.1px !important;
+  height: 0.1px !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  z-index: -1 !important;
+
+
+.input-file + label
+  border 2px solid $secondary
+  padding 1rem
+  border-radius 5px
+  display inline-block
+  cursor pointer
+  transition all 0.2s ease
+  @media screen and (max-width: $tablet)
+    max-width: 75%
+    margin 1rem auto
+  &:active
+    outline 1px dotted #000 !important
+    transform scale3d(0.98, 0.98, 0.98) !important
+    transform translateY(2px) !important
+    transition all 0.2s ease
+  &:hover
+    transform scale(1.01)
+    transform translateY(-1px)
+    box-shadow: 0 1px 2px rgba(0,0,0,0.24)
+
+
+
+.form-group
+  padding-top 2rem
+  padding-bottom 1rem
+
+
+.feedback.has-error
+  font-size 0.8rem
+  font-weight bold
+  color $red
+
+span.feedback.has-error
+  display block
+  padding-bottom 1rem
+
+input.feedback.has-error
+  border 2px solid $red !important

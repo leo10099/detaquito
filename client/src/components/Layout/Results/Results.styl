@@ -1,0 +1,54 @@
+@import "../../../styles/partials/_theme.styl"
+@import "../../../styles/partials/_responsiveness.styl"
+
+#Results
+  display grid
+  align-items: center
+  @media screen and (max-width: $tablet)
+    padding-top 1rem
+  @media screen and (min-width: $tablet)
+    height 100vh
+.dashboard__results__Card
+  opacity 0.9
+  width 66%
+  margin 0 auto
+  text-align center
+  display grid
+  padding 1rem
+  overflow-y scroll
+  grid-template-columns 2fr 0.8fr 0.8fr 0.8fr
+  @media screen and (max-height: $tablet)
+    height 310px
+    overflow-y: auto
+    margin-bottom 1rem
+  @media screen and (max-width: $tablet)
+    width 300px
+    overflow-x: scroll
+    grid-gap: 0.5rem
+  @media screen and (max-width: $tablet) and (orientation: landscape)
+    width 500px
+  @media screen and (min-width: $tablet)
+    width 90%
+    grid-gap: 0.9rem
+.dashboard__results__subtitle
+  color $secondary
+  @media screen and (max-width: $tablet)
+    line-height: 1.5
+  text-align center
+.dashboard__results__h-container
+  background $primary
+  opacity 0.8
+  color $white
+  padding 4px
+.dashboard__results__total-points
+  margin: 1rem auto
+  padding-bottom 4px
+  font-size 1.2rem
+  font-weight: bold
+  color $white
+.dashboard__results__item-container
+  padding-top 2px
+.dashboard__results__points
+  font-weight: bolder
+  color $secondary
+  font-size 1.1rem

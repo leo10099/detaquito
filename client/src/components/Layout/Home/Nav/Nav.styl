@@ -1,0 +1,26 @@
+@import '../../../../styles/partials/_theme.styl'
+@import '../../../../styles/partials/_responsiveness.styl'
+
+#Nav
+  list-style: none
+  margin: 0
+  padding-left: 0
+  display: flex
+  justify-content: space-between
+  align-items: center
+  font-size: 1.2rem
+  @media screen and (min-width:$tablet)
+    padding-left: 100px
+    padding-right: 100px
+  @media screen and (max-width:$tablet)
+    padding-left: 20px
+    padding-right: 20px
+  * img
+    height 50px
+    vertical-align: middle
+    @media screen and (max-width:$tablet)
+      height 33px
+  .nav__item
+    color $secondary
+    &:hover
+      color darken($secondary,20%)

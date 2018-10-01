@@ -1,0 +1,75 @@
+@import "../../../styles/partials/_theme.styl"
+@import "../../../styles/partials/_responsiveness.styl"
+@import "../../../styles/partials/_fonts.styl"
+
+#Predict
+  display grid
+  justify-content center
+  margin auto
+  align-items center
+  height: 100vh
+  @media screen and (max-width:$tablet)
+    width 100vw
+    height 100%
+    grid-template-rows 200px 1fr
+    .dashboard__title, .dashboard__subtitle
+      padding-top 1.2rem
+  @media screen and (max-width:$tablet) and (orientation: landscape)
+    height: 700px
+
+  input[type="text"]
+    padding 0
+    max-width 25%
+    text-align center
+    height 45px
+    background $dark
+    font-weight: bold
+    color $white !important
+.badge
+  display block
+  height: 100px !important
+  @media screen and (max-width:$tablet)
+    height: 80px !important
+  margin 0 auto
+.badge-shadow
+  filter drop-shadow(0px 0px 5px lighten($black,15%))
+
+.moveUp, .moveDown
+  padding 0.5rem
+  cursor pointer
+.moveUp
+  &:hover
+    position relative
+    animation-name moveUpAndDown
+    animation-duration: 0.5s
+    animation-iteration-count: 2
+.moveDown
+  &:hover
+    position relative
+    animation-name moveDownAndUp
+    animation-duration: 0.5s
+    animation-iteration-count: 2
+
+
+@keyframes moveUpAndDown {
+  10% {top: -1px}
+  25% {top: -3px}
+  33% {top: -4px}
+  50% {top: -5px}
+  66% {top: -4px}
+  75% {top: -3px}
+  90% {top: -1px}
+  100% {top: 0px}
+}
+
+@keyframes moveDownAndUp {
+  10% {top: 1px}
+  25% {top: 3px}
+  33% {top: 4px}
+  50% {top: 5px}
+  66% {top: 4px}
+  75% {top: 3px}
+  90% {top: 1px}
+  100% {top: 0px}
+}
+

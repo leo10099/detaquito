@@ -1,0 +1,43 @@
+{
+  "name": "detaquito",
+  "version": "1.0.0",
+  "description": "De Taquito - El Prode del Siglo XXI",
+  "main": "start.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node start.js",
+    "server": "nodemon start.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "engines": {
+    "node": "10.x.x",
+    "npm": "6.x.x"
+  },
+  "author": "Leandro Hanc",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cloudinary": "^1.11.0",
+    "colors": "^1.3.2",
+    "compression": "^1.7.3",
+    "concurrently": "^4.0.1",
+    "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-sslify": "^1.2.0",
+    "mongoose": "5.2.8",
+    "morgan-body": "^2.4.5",
+    "multer": "^1.3.1",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-headerapikey": "^1.1.0",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-plugin-security": "^1.4.0"
+  }
+}

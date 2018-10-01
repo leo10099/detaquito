@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  .container
+    H1 CARGAR NUEVA FECHA
+    form(method="POST" id="createMatch" name="createMatch")
+      #form-container
+        .form-group
+          label(for="round") Cargar Fecha Nº
+          input(type="number" name="round" class="form-control")
+      H3(class="pt-3") CARGAR PARTIDOS
+        each partido in [1,2,3,4,5,6,7,8,9,10,11,12,13]
+          H5(class="pt-3 text-titulo") PARTIDO #{partido}
+              .form-group
+                label(for=partido class="mt-4 text-subtitulo") Local
+                select(class="form-control" name=partido)
+                  each equipo in listaDeEquipos
+                    option(value=equipo._id ) #{equipo.name}
+              .form-group
+                label(for=partido class="mt-4 text-subtitulo") Visitante
+                select(class="form-control" name=partido)
+                  each equipo in listaDeEquipos
+                    option(value=equipo._id) #{equipo.name}
+        input.button(type="submit" value="Enviar ➡" class="btn d-block w-50 mx-auto mt-5")

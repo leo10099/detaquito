@@ -1,0 +1,70 @@
+@import "../../../../styles/partials/_responsiveness.styl"
+@import "../../../../styles/partials/_theme.styl"
+
+.dashboard__header
+  display flex
+
+  justify-content: space-between
+  align-items: center
+  font-size: 1.2rem
+  @media screen and (min-width:$tablet)
+    padding-left: 100px
+    padding-right: 100px
+  @media screen and (max-width:$tablet)
+    padding-left: 20px
+    padding-right: 20px
+.dashboard__header__avatar
+  padding-top 150px
+  display: block
+  text-align: center
+.dashboard__header__Card-Wrapper
+  position: relative
+  transition: top 0.2s ease, opacity 0.2s ease;
+  opacity: 0
+  visibility hidden
+  top:0px
+.dashboard__header__Card-Wrapper--enter
+  position: relative
+  transition: top 0.2s ease, opacity 0.2s ease;
+  opacity: 0.5
+  top:-1px
+.dashboard__header__Card-Wrapper--active
+  transition: top 0.2s ease, opacity 0.2s ease;
+  opacity: 1
+  position: relative !important
+  top: 15px
+  z-index: 200
+
+
+.dashboard__header__options
+  top: 10%
+
+  position relative
+  .fa
+    vertical-align: baseline !important
+    font-size: 1rem !important
+  .dashboard__header__options-link
+    display: block !important
+    width 100% !important
+    padding: 1rem
+    &:hover
+      background: darken(white,4%)
+    &:hover:first-child
+        background: white
+    &:last-child
+      border-bottom-left-radius: 5px
+      border-bottom-right-radius: 5px
+  a
+    display: block
+    vertical-align: middle
+    text-align: center
+    color $dark
+
+.fa.cerrar
+  position: absolute
+  color $dark
+  &:hover
+    color $dark !important
+  top: 0
+  right : 0
+  padding: 1rem

@@ -1,0 +1,39 @@
+html {
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+body {
+  background: #4c1a8d;
+  color: whitesmoke;
+  font-family: 'Hack';
+}
+
+.error {
+  color: darkorange;
+  font-size: 1rem;
+}
+
+.text-titulo {
+  color: #dacc10;
+}
+
+.text-subtitulo {
+  color: #a3e070;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+pre {
+  text-align: center;
+  color: whitesmoke;
+  font-weight: bolder;
+  font-size: 1rem;
+}

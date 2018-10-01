@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .container
+    H1(class="h1 mx-3") CARGAR LOS RESULTADOS DE LA FECHA
+      form(method="POST" name="round-results" action="/input-round-results/")
+        #form-container
+          each partido,key in allMatches
+            H5(class="pt-3 text-titulo") PARTIDO #{key+1}
+                .form-group
+                  input(type="hidden" name=`${key}[round]` value=roundnum)
+                  input(type="hidden" name=`${key}[played]` value="true")
+                  label(for=partido class="mt-4 text-subtitulo") Local: #{partido.home_team.name.toUpperCase()}
+                  input(type="hidden" name=`${key}[home_team]` value=partido.home_team._id)
+                  input(class="form-control" type="number" min="0" max="9" name=`${key}[home_goals]`)
+                .form-group
+                  label(for=partido class="mt-4 text-subtitulo") Visitante: #{partido.away_team.name.toUpperCase()}
+                  input(type="hidden" name=`${key}[away_team]` value=partido.away_team._id)
+                  input(class="form-control" type="number" min="0" max="9" name=`${key}[away_goals]`)
+        input.button(type="submit" value="Enviar ➡" class="btn d-block w-50 mx-auto mt-5 mb-5")
+
+

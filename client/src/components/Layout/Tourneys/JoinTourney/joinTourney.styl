@@ -1,0 +1,32 @@
+@import "../../../../styles/partials/_theme.styl"
+@import "../../../../styles/partials/_responsiveness.styl"
+@import "../../../../styles/partials/_forms.styl"
+
+.Tourney__Join
+  display grid
+  margin auto
+  text-align center
+  align-items center
+  justify-content center
+  height 100vh
+  @media screen and (max-width: $tablet)
+    margin 2rem auto
+.Tourney__Join__button-panel
+  margin-top 5rem !important
+  @media screen and (max-width: $tablet)
+    margin-top 2rem
+.Tourney__Join__form > *
+  padding-top 4rem
+  @media screen and (max-width: $tablet)
+    display block
+    padding-top 2rem
+input.Tourney__New__input
+  color $white !important
+  margin-top 4rem
+  @media screen and (max-width: $tablet)
+    margin-top 2rem
+.Tourney__New__Button-panel > *
+  @media screen and (max-width: $tablet)
+    display block
+    margin auto
+    width 90%

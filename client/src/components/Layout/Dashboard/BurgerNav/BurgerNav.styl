@@ -1,0 +1,33 @@
+@import "../../../../styles/partials/_theme.styl"
+@import "../../../../styles/partials/_responsiveness.styl"
+@import "../../../../styles/partials/_fonts.styl"
+
+#DashboardBurgerNav
+  width: 100%
+  height: 100%
+  padding: 0
+  position relative
+  color: $black
+  margin auto 0
+
+  @media screen and (min-width: $tablet)
+    display none
+.dashboardBurgerNav__navbar
+  position: relative
+  background: $secondary
+  overflow: hidden
+  width: 100vw
+  z-index: 10
+  height 100%
+.dashboardBurgerNav__toggle
+  position absolute
+  top: 80px
+  padding-top 1rem
+  left: 20px
+  width 2rem
+  z-index: 20
+  cursor: pointer
+.dashboardBurgerNav__navbar__container
+  height 100%
+  padding-top 1rem
+  padding-bottom 1rem
