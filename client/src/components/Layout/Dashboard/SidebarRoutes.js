@@ -29,7 +29,7 @@ const sidebar = [
     main: () => <h2>Rankings</h2>
   },
   {
-    path: '/tournament/admin/:tourney',
+    path: '/admin/:tourney',
     main: props => <TournamentsAdmin {...props} />,
     exact: true
   },

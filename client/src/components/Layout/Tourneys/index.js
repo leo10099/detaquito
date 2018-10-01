@@ -41,7 +41,7 @@ export class Tournaments extends Component {
           </Link>
         )}
         {tourneyOwner === this.props.auth._id && (
-          <Link to={`/tournament/admin/${id}`} className="text-dark">
+          <Link to={`/admin/${id}`} className="text-dark">
             <span>
               Gestionar &nbsp;
               <i className="fa fa-wrench text-primary" />
