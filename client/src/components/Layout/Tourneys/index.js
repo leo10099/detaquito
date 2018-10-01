@@ -29,13 +29,16 @@ export class Tournaments extends Component {
     }
   };
 
-  availableActions = (index, tourneyOwner) => {
+  availableActions = (index, tourneyOwner, id) => {
     return (
       <div className="dashboard__tournaments__list__actions">
         {index === 'confirmed' && (
-          <span>
-            Detalle &nbsp; <i className="fa fa-search baseline text-primary" />
-          </span>
+          <Link to={`/tournament/${id}`} className="text-dark">
+            <span>
+              Detalle &nbsp;{' '}
+              <i className="fa fa-search baseline text-primary" />
+            </span>
+          </Link>
         )}
         {tourneyOwner === this.props.auth._id && (
           <span>
@@ -80,7 +83,7 @@ export class Tournaments extends Component {
                         {this.checkUserStatus(index)}
                       </div>
                       <div className="dashboard__tournaments__list-td">
-                        {this.availableActions(index, t.owner)}
+                        {this.availableActions(index, t.owner, t._id)}
                       </div>
                     </Fragment>
                   );

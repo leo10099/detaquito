@@ -8,6 +8,7 @@ import Results from '../Results/';
 import TournamentsHome from '../Tourneys/';
 import TournamentsNew from '../Tourneys/NewTourney/';
 import TournamentsJoin from '../Tourneys/JoinTourney/';
+import TournamentsSingle from '../Tourneys/SingleTourney';
 
 const sidebar = [
   {
@@ -28,7 +29,7 @@ const sidebar = [
   },
   {
     path: '/tournament/:tourney',
-    main: props => <Results {...props} />,
+    main: props => <TournamentsSingle {...props} />,
     exact: true
   },
   {
