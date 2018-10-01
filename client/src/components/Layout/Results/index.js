@@ -57,7 +57,7 @@ export class Result extends Component {
 
     if (!matches.length || !predictions.length || !scores.detail) {
       return (
-        <section>
+        <section id="Results">
           <h1 className="dashboard__title">Mis Resultados</h1>
           <p className="dashboard__lead">
             Si pronosticate la fecha anterior, enterate acá cuánto sumaste por
