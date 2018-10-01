@@ -73,7 +73,8 @@ export default class NewTourney extends Component {
             Se creó correctamente tu torneo. <br />
             Para que otros usuarios puedan sumarse pasales el número del mismo:
             &nbsp;
-            <span className="text-secondary">{newT.number}</span>.<br />
+            <span className="text-secondary">{newT.number}</span>
+            <br />
             <Link to={`/tournament/:${newT._id}/`}>
               Ver <i className="fa fa-arrow-right" />
             </Link>

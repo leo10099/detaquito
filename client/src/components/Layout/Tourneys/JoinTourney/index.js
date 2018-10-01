@@ -19,9 +19,11 @@ class JoinTourney extends Component {
       toastr.error('Debés ingresar el número del torneo');
       return false;
     }
-    axios
+
+    await axios
       .post('/api/update/tourney/join', { number })
       .then(response => {
+        console.log(response);
         if (
           response.data.tourney.users_unconfirmed.includes(this.props.auth._id)
         ) {

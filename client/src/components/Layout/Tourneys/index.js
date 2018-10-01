@@ -66,32 +66,34 @@ export class Tournaments extends Component {
           <br />
           Demostrarle a tus amistades y familiares quién sabe más de fútbol
         </p>
-        {userTourneys && (
-          <Card className="dashboard__tornaments__card">
-            <section className="dashboard__tournaments__list">
-              <div className="dashboard__tournaments__list-th">Nombre</div>
-              <div className="dashboard__tournaments__list-th">Estado</div>
-              <div className="dashboard__tournaments__list-th">Acciones</div>
-              {Object.keys(userTourneys).map(index => {
-                return userTourneys[index].map(t => {
-                  return (
-                    <Fragment key={t._id}>
-                      <div className="dashboard__tournaments__list-td">
-                        {t.name}
-                      </div>
-                      <div className="dashboard__tournaments__list-td">
-                        {this.checkUserStatus(index)}
-                      </div>
-                      <div className="dashboard__tournaments__list-td">
-                        {this.availableActions(index, t.owner, t._id)}
-                      </div>
-                    </Fragment>
-                  );
-                });
-              })}
-            </section>
-          </Card>
-        )}
+        {userTourneys &&
+          (userTourneys.confirmed.length ||
+            userTourneys.unconfirmed.length) && (
+            <Card className="dashboard__tornaments__card">
+              <section className="dashboard__tournaments__list">
+                <div className="dashboard__tournaments__list-th">Nombre</div>
+                <div className="dashboard__tournaments__list-th">Estado</div>
+                <div className="dashboard__tournaments__list-th">Acciones</div>
+                {Object.keys(userTourneys).map(index => {
+                  return userTourneys[index].map(t => {
+                    return (
+                      <Fragment key={t._id}>
+                        <div className="dashboard__tournaments__list-td">
+                          {t.name}
+                        </div>
+                        <div className="dashboard__tournaments__list-td">
+                          {this.checkUserStatus(index)}
+                        </div>
+                        <div className="dashboard__tournaments__list-td">
+                          {this.availableActions(index, t.owner, t._id)}
+                        </div>
+                      </Fragment>
+                    );
+                  });
+                })}
+              </section>
+            </Card>
+          )}
         <div className="dashboard__tournaments__button-panel">
           <Link to="/joinTourney">
             <Button backgroundColor={colors.secondary} textColor={colors.black}>

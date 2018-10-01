@@ -33,14 +33,15 @@ exports.getUserTourneys = async (req, res) => {
 exports.addUnconfirmedUser = async (req, res) => {
   const { number } = req.body;
   const user = req.user._id;
-  const tourney = await Tourney.findOne({ number });
+  const tourney = await Tourney.findOneAndUpdate(
+    { number },
+    { $addToSet: { users_unconfirmed: user } },
+    { new: true }
+  );
   if (!tourney) {
     return res
       .status(400)
       .json({ error: 'El torneo que ingresaste no existe' });
   }
-  await tourney.update({
-    $addToSet: { users_unconfirmed: user }
-  });
   res.status(200).json({ tourney });
 };
