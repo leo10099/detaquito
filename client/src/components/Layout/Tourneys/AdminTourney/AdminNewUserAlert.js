@@ -34,9 +34,7 @@ const AdminNewUserAlert = props => {
                     </span>
                     <span
                       className="Dashboard__Card__unconfirmedUserAdminActions--accept"
-                      onClick={unconfirmedUser =>
-                        acceptUser(unconfirmedUser._id)
-                      }
+                      onClick={() => acceptUser(unconfirmedUser._id)}
                     >
                       Aceptar
                     </span>

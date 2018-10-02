@@ -11,7 +11,6 @@ import './AdminTourney.styl';
 
 class AdminTourney extends Component {
   state = {
-    t: {},
     admin: ''
   };
 
@@ -25,13 +24,24 @@ class AdminTourney extends Component {
     this.fetchTourneyData();
   }
 
-  acceptUser = (tourney, user) => {};
+  acceptUser = user => {
+    axios
+      .patch('/api/update/tourney/accept', { _id: this.state.t._id, user })
+      .then(response => {
+        this.fetchTourneyData();
+        this.forceUpdate();
+        toastr.success(
+          'Aceptaste exitosamente al usuario, ya es miembro del Torneo.'
+        );
+      });
+  };
 
   rejectUser = user => {
     axios
       .patch('/api/update/tourney/reject', { _id: this.state.t._id, user })
       .then(response => {
         this.fetchTourneyData();
+        this.forceUpdate();
         toastr.success(
           'Rechazaste la solicitud del usuario. No participará de tu Torneo'
         );
@@ -70,7 +80,7 @@ class AdminTourney extends Component {
           </span>
         </h3>
         {t &&
-          t.length && (
+          t.users_unconfirmed.length && (
             <PendingUserAlert
               tourney={t._id}
               unconfirmed={t.users_unconfirmed}

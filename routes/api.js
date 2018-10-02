@@ -102,4 +102,13 @@ router.patch(
   catchErrors(tourneyController.rejectUnconfirmedUser)
 );
 
+router.patch(
+  '/api/update/tourney/accept',
+  catchErrors(tourneyController.acceptUnconfirmedUser)
+);
+
+router.patch(
+  '/api/update/tourney/leave',
+  catchErrors(tourneyController.userLeave)
+);
 module.exports = router;

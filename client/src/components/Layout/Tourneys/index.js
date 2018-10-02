@@ -6,11 +6,20 @@ import { colors } from '../../Utilities';
 import { Card } from '../../Elements/';
 import { PulseLoader } from 'react-spinners';
 import axios from 'axios';
+import toastr from 'toastr';
 
 import './Tourneys.styl';
 
 export class Tournaments extends Component {
-  async componentDidMount() {
+  state = {
+    userTourneys: null
+  };
+
+  componentDidMount() {
+    this.fetchTourneyData();
+  }
+
+  async fetchTourneyData() {
     const response = await axios.get(
       `/api/fetch/tourney/user/?u=${this.props.auth._id}`
     );
@@ -18,15 +27,30 @@ export class Tournaments extends Component {
       userTourneys: response.data
     });
   }
-  state = {
-    userTourneys: null
-  };
   checkUserStatus = index => {
     if (index === 'confirmed') {
       return 'Activo';
     } else {
       return 'Esperando aprobación';
     }
+  };
+
+  userLeave = t_id => {
+    axios
+      .patch('/api/update/tourney/leave', {
+        _id: t_id,
+        user: this.props.auth._id
+      })
+      .then(async response => {
+        toastr.success(response.data.data);
+        await this.fetchTourneyData();
+        this.forceUpdate();
+      })
+      .catch(e => {
+        toastr.error(
+          'Hubo un error al abandonar el Torneo. Por favor, intentá más tarde.'
+        );
+      });
   };
 
   availableActions = (index, tourneyOwner, id) => {
@@ -49,7 +73,10 @@ export class Tournaments extends Component {
           </Link>
         )}
         {tourneyOwner !== this.props.auth._id && (
-          <span>
+          <span
+            onClick={() => this.userLeave(id)}
+            style={{ cursor: 'pointer' }}
+          >
             Abandonar &nbsp;{' '}
             <i className="fa fa-times-circle baseline text-danger" />
           </span>
