@@ -19,7 +19,7 @@ class AdminTourney extends Component {
   }
 
   //TODO --> refactor to dumb component
-  renderEditMembers = (unconfirmed, confirmed) => {
+  renderAlert = (unconfirmed, confirmed) => {
     return (
       <section className="Tourney__Admin__EditMembers">
         <div className="text-white">
@@ -33,22 +33,21 @@ class AdminTourney extends Component {
                 return (
                   <section
                     key={unconfirmedUser._id}
-                    className="Dashboard__Card_"
+                    className="Dashboard__Card__Group"
                   >
                     <div className="Dashboard__Card__unconfirmedUser">
                       {unconfirmedUser.alias}
                       {unconfirmedUser.avatar && (
                         <img src={unconfirmedUser.avatar} />
                       )}
-
-                      <div className="Dashboard__Card__unconfirmedUserAdminActions">
-                        <span className="Dashboard__Card__unconfirmedUserAdminActions--reject">
-                          Rechazar
-                        </span>
-                        <span className="Dashboard__Card__unconfirmedUserAdminActions--accept">
-                          Aceptar
-                        </span>
-                      </div>
+                    </div>
+                    <div className="Dashboard__Card__unconfirmedUserAdminActions">
+                      <span className="Dashboard__Card__unconfirmedUserAdminActions--reject">
+                        Rechazar
+                      </span>
+                      <span className="Dashboard__Card__unconfirmedUserAdminActions--accept">
+                        Aceptar
+                      </span>
                     </div>
                   </section>
                 );
@@ -61,12 +60,12 @@ class AdminTourney extends Component {
 
   render() {
     const { t } = this.state;
-    const { renderEditMembers } = this;
+    const { renderAlert } = this;
     return (
       <section className="Tourney__Admin">
         <h1 className="dashboard__title">GESTIÓN DE TORNEO</h1>
-        <h3 className="dashboard__lead text-white">
-          <span className="text-secondary pointer">Quiero: &nbsp;</span>
+        <h3 className="dashboard__lead Admin__Tourney__Options text-white">
+          <span className="text-secondary">Quiero: &nbsp;</span>
           <span
             className="pointer"
             onClick={() => {
@@ -85,7 +84,7 @@ class AdminTourney extends Component {
             &nbsp;Editar Torneo
           </span>
         </h3>
-        {t && renderEditMembers(t.users_unconfirmed, t.users)}
+        {t && renderAlert(t.users_unconfirmed)}
       </section>
     );
   }

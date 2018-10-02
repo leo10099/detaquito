@@ -7,35 +7,61 @@
   justify-content center
   align-items center
   height 100vh
+  @media screen and (max-width:$tablet)
+    height 100%
+
+.Admin__Tourney__Options
+  @media screen and (max-width:$tablet)
+    font-size 1.1rem
+    font-weight: normal
+    padding-top 3rem
+    padding-bottom 2rem
+
 .Dashboard__Card--alert
+  display grid
+  @media screen and (max-width:$tablet)
+    width 300px
+  @media screen and (min-width:$tablet)
+    grid-template-columns 1fr
+    grid-template-rows 1fr
+  grid-template-rows repeat( auto-fill, minmax(min-content, max-content) );
+  grid-template-columns: 1fr
   background $secondary
   opacity 0.9
-  margin 1rem
-  display grid
-  grid-template-columns 1fr
-  grid-template-rows 1fr
   grid-row-gap: 1.5rem
   color $dark
   text-align: center
+  margin-bottom 1rem
+
+.Dashboard__Card__Group
+  margin-bottom 2rem
 .Dashboard__Card__unconfirmedAlertLead
   padding-bottom 2rem
+  line-height: 2
+
 .Dashboard__Card__unconfirmedUser
-  grid-column 1 / span 2
+  @media screen and (min-width:$tablet)
+    grid-column 1 / span 2
   justify-content center
-  display flex
+  display inline-flex
   font-size 1.2rem
   align-items: center
+
 .Dashboard__Card__unconfirmedUser img
   height 65px !important
   filter: drop-shadow(0 0.15rem 0.30rem $primary);
+
 .Dashboard__Card__unconfirmedUser *
   margin-left 2rem
   margin-right 2rem
+
 .Dashboard__Card__unconfirmedUserAdminActions
-  grid-column 1 / span 2
-  display flex
+  @media screen and (min-width:$tablet)
+    grid-column 1 / span 2
+  display inline-flex
   justify-content: space-around
   font-size 1rem
+
 .Dashboard__Card__unconfirmedUserAdminActions--reject
   color $white
   border 1px solid $white
@@ -43,6 +69,13 @@
   border-radius 5px
   cursor pointer
   font-weight bold
+  @media screen and (max-width:$tablet)
+    margin-top 3rem
+    margin-right 1rem
+  @media screen and (min-width:$tablet)
+    margin-left 1rem
+    margin-right 1rem
+
 .Dashboard__Card__unconfirmedUserAdminActions--accept
   color $white
   background $primary
@@ -50,3 +83,9 @@
   border-radius: 5px
   cursor pointer
   font-weight: bold
+  @media screen and (max-width:$tablet)
+    margin-top 3rem
+    margin-left 1rem
+  @media screen and (min-width:$tablet)
+    margin-left 1rem
+    margin-right 1rem
