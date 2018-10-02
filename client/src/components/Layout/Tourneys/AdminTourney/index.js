@@ -23,21 +23,34 @@ class AdminTourney extends Component {
     return (
       <section className="Tourney__Admin__EditMembers">
         <div className="text-white">
-          ¡Ey! Tenés pendientes <strong>solicitudes de ingreso</strong> a este
-          Torneo.
           <Card className="Dashboard__Card--alert">
-            <div>Usuario</div>
-            <div>Acciones</div>
+            <span className="Dashboard__Card__unconfirmedAlertLead">
+              ¡Ey, tenés pendientes <strong>solicitudes de ingreso</strong> a
+              este Torneo!
+            </span>{' '}
             {unconfirmed &&
               unconfirmed.map(unconfirmedUser => {
                 return (
-                  <Fragment key={unconfirmedUser._id}>
-                    <div>{unconfirmedUser.alias}</div>
-                    <div>
-                      <span>Aceptar</span>
-                      <span>Rechazar</span>
+                  <section
+                    key={unconfirmedUser._id}
+                    className="Dashboard__Card_"
+                  >
+                    <div className="Dashboard__Card__unconfirmedUser">
+                      {unconfirmedUser.alias}
+                      {unconfirmedUser.avatar && (
+                        <img src={unconfirmedUser.avatar} />
+                      )}
+
+                      <div className="Dashboard__Card__unconfirmedUserAdminActions">
+                        <span className="Dashboard__Card__unconfirmedUserAdminActions--reject">
+                          Rechazar
+                        </span>
+                        <span className="Dashboard__Card__unconfirmedUserAdminActions--accept">
+                          Aceptar
+                        </span>
+                      </div>
                     </div>
-                  </Fragment>
+                  </section>
                 );
               })}
           </Card>

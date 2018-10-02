@@ -16,7 +16,8 @@ exports.uploadAvatar = async (file, userId) => {
         width: 150,
         height: 150,
         crop: 'thumb',
-        radius: 75
+        radius: 75,
+        format: 'png'
       },
       function(error, result) {
         if (error) {
