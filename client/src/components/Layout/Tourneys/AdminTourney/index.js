@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import ProçpTypes from 'prop-types';
+import React, { Fragment, Component } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Card } from '../../../Elements/';
 import axios from 'axios';
@@ -18,8 +18,37 @@ class AdminTourney extends Component {
     });
   }
 
+  //TODO --> refactor to dumb component
+  renderEditMembers = (unconfirmed, confirmed) => {
+    return (
+      <section className="Tourney__Admin__EditMembers">
+        <div className="text-white">
+          ¡Ey! Tenés pendientes <strong>solicitudes de ingreso</strong> a este
+          Torneo.
+          <Card className="Dashboard__Card--alert">
+            <div>Usuario</div>
+            <div>Acciones</div>
+            {unconfirmed &&
+              unconfirmed.map(unconfirmedUser => {
+                return (
+                  <Fragment key={unconfirmedUser._id}>
+                    <div>{unconfirmedUser.alias}</div>
+                    <div>
+                      <span>Aceptar</span>
+                      <span>Rechazar</span>
+                    </div>
+                  </Fragment>
+                );
+              })}
+          </Card>
+        </div>
+      </section>
+    );
+  };
+
   render() {
     const { t } = this.state;
+    const { renderEditMembers } = this;
     return (
       <section className="Tourney__Admin">
         <h1 className="dashboard__title">GESTIÓN DE TORNEO</h1>
@@ -43,7 +72,7 @@ class AdminTourney extends Component {
             &nbsp;Editar Torneo
           </span>
         </h3>
-        <Card className="dashboard__tornaments__card" />
+        {t && renderEditMembers(t.users_unconfirmed, t.users)}
       </section>
     );
   }

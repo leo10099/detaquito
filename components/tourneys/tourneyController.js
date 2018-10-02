@@ -5,7 +5,9 @@ const ObjectID = mongoose.Types.ObjectId;
 exports.getTourneyData = async (req, res) => {
   const { _id } = req.params;
   console.log(_id);
-  const tourney = await Tourney.findById({ _id });
+  const tourney = await Tourney.findById({ _id }).populate(
+    'users_unconfirmed users'
+  );
   res.status(200).json({ tourney });
 };
 
