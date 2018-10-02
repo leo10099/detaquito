@@ -97,4 +97,9 @@ router.post(
   catchErrors(tourneyController.addUnconfirmedUser)
 );
 
+router.patch(
+  '/api/update/tourney/reject',
+  catchErrors(tourneyController.rejectUnconfirmedUser)
+);
+
 module.exports = router;

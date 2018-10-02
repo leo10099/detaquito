@@ -3,7 +3,7 @@ import { Card } from '../../../Elements/';
 import PropTypes from 'prop-types';
 
 const AdminNewUserAlert = props => {
-  const { unconfirmed } = props;
+  const { unconfirmed, acceptUser, rejectUser } = props;
   return (
     <section className="Tourney__Admin__EditMembers">
       <div className="text-white">
@@ -26,10 +26,18 @@ const AdminNewUserAlert = props => {
                     )}
                   </div>
                   <div className="Dashboard__Card__unconfirmedUserAdminActions">
-                    <span className="Dashboard__Card__unconfirmedUserAdminActions--reject">
+                    <span
+                      className="Dashboard__Card__unconfirmedUserAdminActions--reject"
+                      onClick={() => rejectUser(unconfirmedUser._id)}
+                    >
                       Rechazar
                     </span>
-                    <span className="Dashboard__Card__unconfirmedUserAdminActions--accept">
+                    <span
+                      className="Dashboard__Card__unconfirmedUserAdminActions--accept"
+                      onClick={unconfirmedUser =>
+                        acceptUser(unconfirmedUser._id)
+                      }
+                    >
                       Aceptar
                     </span>
                   </div>
@@ -42,6 +50,10 @@ const AdminNewUserAlert = props => {
   );
 };
 
-AdminNewUserAlert.propTypes = {};
+AdminNewUserAlert.propTypes = {
+  unconfirmed: PropTypes.array,
+  acceptUser: PropTypes.func.isRequired,
+  rejectUser: PropTypes.func.isRequired
+};
 
 export default AdminNewUserAlert;

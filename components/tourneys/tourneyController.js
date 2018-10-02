@@ -54,3 +54,15 @@ exports.addUnconfirmedUser = async (req, res) => {
   }
   res.status(200).json({ tourney });
 };
+
+exports.acceptUnconfirmedUser = async (req, res) => {};
+
+exports.rejectUnconfirmedUser = async (req, res) => {
+  const { _id, user } = req.body;
+  const tourney = await Tourney.findOneAndUpdate(
+    { _id },
+    { $pull: { users_unconfirmed: user } },
+    { new: true }
+  );
+  res.status(200).json({ tourney });
+};
