@@ -1,8 +1,9 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { Card } from '../../../Elements/';
+
 import axios from 'axios';
+import PendingUserAlert from './AdminNewUserAlert';
 
 import './AdminTourney.styl';
 
@@ -17,46 +18,6 @@ class AdminTourney extends Component {
       this.setState({ t: { ...response.data.tourney } });
     });
   }
-
-  //TODO --> refactor to dumb component
-  renderAlert = (unconfirmed, confirmed) => {
-    return (
-      <section className="Tourney__Admin__EditMembers">
-        <div className="text-white">
-          <Card className="Dashboard__Card--alert">
-            <span className="Dashboard__Card__unconfirmedAlertLead">
-              ¡Ey, tenés pendientes <strong>solicitudes de ingreso</strong> a
-              este Torneo!
-            </span>{' '}
-            {unconfirmed &&
-              unconfirmed.map(unconfirmedUser => {
-                return (
-                  <section
-                    key={unconfirmedUser._id}
-                    className="Dashboard__Card__Group"
-                  >
-                    <div className="Dashboard__Card__unconfirmedUser">
-                      {unconfirmedUser.alias}
-                      {unconfirmedUser.avatar && (
-                        <img src={unconfirmedUser.avatar} />
-                      )}
-                    </div>
-                    <div className="Dashboard__Card__unconfirmedUserAdminActions">
-                      <span className="Dashboard__Card__unconfirmedUserAdminActions--reject">
-                        Rechazar
-                      </span>
-                      <span className="Dashboard__Card__unconfirmedUserAdminActions--accept">
-                        Aceptar
-                      </span>
-                    </div>
-                  </section>
-                );
-              })}
-          </Card>
-        </div>
-      </section>
-    );
-  };
 
   render() {
     const { t } = this.state;
@@ -84,7 +45,7 @@ class AdminTourney extends Component {
             &nbsp;Editar Torneo
           </span>
         </h3>
-        {t && renderAlert(t.users_unconfirmed)}
+        {t && <PendingUserAlert unconfirmed={t.users_unconfirmed} />}
       </section>
     );
   }
