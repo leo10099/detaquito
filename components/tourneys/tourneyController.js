@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Tourney = mongoose.model('Tourney');
-const ObjectID = mongoose.Types.ObjectId;
 
 exports.getTourneyData = async (req, res) => {
   const { _id } = req.params;
@@ -29,6 +28,24 @@ exports.createTourney = async (req, res) => {
     }
     res.status(200).json({ data: newT });
   });
+};
+
+exports.editName = async (req, res) => {
+  const { tourney, newName } = req.body;
+  const owner = req.user._id;
+  const t = await Tourney.findById(tourney);
+  console.log(t.owner, owner);
+  // Chequear que el cambio lo haga el owner del Torneo
+  if (t.owner.toString() != owner) {
+    return res
+      .status(422)
+      .json({ message: 'Sólo el creador del Torneo puede realizar cambios' });
+  }
+  // Guardar el nuevo nombre
+  t.name = newName;
+  await t.save();
+
+  res.status(200).send(t);
 };
 
 exports.getUserTourneys = async (req, res) => {

@@ -11,8 +11,11 @@ import './AdminTourney.styl';
 
 class AdminTourney extends Component {
   state = {
-    admin: ''
+    admin: '',
+    editNameDisabled: true
   };
+
+  NameInput = React.createRef();
 
   fetchTourneyData() {
     const { tourney } = this.props.match.params;
@@ -23,6 +26,31 @@ class AdminTourney extends Component {
   componentDidMount() {
     this.fetchTourneyData();
   }
+
+  toggleInput = () => {
+    if (this.state.editNameDisabled) {
+      this.setState({ editNameDisabled: false });
+      this.NameInput.current.focus();
+    } else {
+      const { _id: tourney } = this.state.t;
+      const { value: newName } = this.NameInput.current;
+      axios
+        .patch('/api/update/tourney/name', { tourney, newName })
+        .then(response =>
+          toastr.success('Cambiaste exitosamente el nombre tu Torneo')
+        )
+        .catch(e => {
+          if (e.response.status === 422) {
+            toastr.error(e.response.data.message);
+          } else {
+            toastr.error(
+              'Hubo un error al cambiar el nombre. Por favor, intentá más tarde'
+            );
+          }
+        });
+      this.setState({ editNameDisabled: true });
+    }
+  };
 
   acceptUser = user => {
     axios
@@ -54,31 +82,11 @@ class AdminTourney extends Component {
   };
 
   render() {
-    const { t } = this.state;
-    const { acceptUser, rejectUser } = this;
+    const { t, editNameDisabled } = this.state;
+    const { acceptUser, rejectUser, toggleInput } = this;
     return (
       <section className="Tourney__Admin">
         <h1 className="dashboard__title">GESTIÓN DE TORNEO</h1>
-        <h3 className="dashboard__lead Admin__Tourney__Options text-white">
-          <span className="text-secondary">Quiero: &nbsp;</span>
-          <span
-            className="pointer"
-            onClick={() => {
-              this.setState({ admin: 'users' });
-            }}
-          >
-            &nbsp; Editar Miembros
-          </span>{' '}
-          <span className="text-secondary">|</span>{' '}
-          <span
-            className="pointer"
-            onClick={() => {
-              this.setState({ admin: 'tourney' });
-            }}
-          >
-            &nbsp;Editar Torneo
-          </span>
-        </h3>
         {t &&
           t.users_unconfirmed.length > 0 && (
             <PendingUserAlert
@@ -88,6 +96,62 @@ class AdminTourney extends Component {
               rejectUser={rejectUser}
             />
           )}
+        {t && (
+          <form>
+            <div className="form-group">
+              <label
+                htmlFor="TourneyNumber"
+                className="label-inline text-white"
+              >
+                Número
+              </label>
+              <input
+                type="text"
+                style={{ width: '15%' }}
+                className="Tourney__Admin__Input"
+                disabled
+                defaultValue={t.number}
+                id="TourneyNumber"
+              />
+              <div className="feedback">
+                Dale éste número a los usuarios de De Taquito para que puedan
+                unirse al Torneo.
+              </div>
+
+              <div className="form-group">
+                <label
+                  htmlFor="TourneyName"
+                  className="label-inline text-white"
+                >
+                  Nombre{' '}
+                </label>
+                <input
+                  type="text"
+                  className="Tourney__Admin__Input"
+                  disabled={editNameDisabled}
+                  defaultValue={t.name}
+                  id="TourneyName"
+                  ref={this.NameInput}
+                />
+                {editNameDisabled ? (
+                  <span
+                    className="Tourney__Admin__Form-Action"
+                    onClick={toggleInput}
+                  >
+                    <i className="fa fa-edit" /> &nbsp; Modificar
+                  </span>
+                ) : (
+                  <span
+                    className="Tourney__Admin__Form-Action"
+                    onClick={toggleInput}
+                  >
+                    <i className="fa fa-save" /> &nbsp; Guardar
+                  </span>
+                )}
+              </div>
+            </div>
+          </form>
+        )}
       </section>
     );
   }

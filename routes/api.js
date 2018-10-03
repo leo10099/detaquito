@@ -103,6 +103,11 @@ router.patch(
 );
 
 router.patch(
+  '/api/update/tourney/name',
+  catchErrors(tourneyController.editName)
+);
+
+router.patch(
   '/api/update/tourney/accept',
   catchErrors(tourneyController.acceptUnconfirmedUser)
 );
