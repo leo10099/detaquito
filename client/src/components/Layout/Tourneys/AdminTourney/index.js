@@ -108,7 +108,7 @@ class AdminTourney extends Component {
               </label>
               <input
                 type="text"
-                style={{ width: '15%' }}
+                style={{ width: '25%' }}
                 className="Tourney__Admin__Input"
                 disabled
                 defaultValue={t.number}
