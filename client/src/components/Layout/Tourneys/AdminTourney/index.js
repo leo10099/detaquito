@@ -29,8 +29,9 @@ class AdminTourney extends Component {
 
   toggleInput = () => {
     if (this.state.editNameDisabled) {
-      this.setState({ editNameDisabled: false });
-      this.NameInput.current.focus();
+      this.setState({ editNameDisabled: false }, () => {
+        this.NameInput.current.select();
+      });
     } else {
       const { _id: tourney } = this.state.t;
       const { value: newName } = this.NameInput.current;
