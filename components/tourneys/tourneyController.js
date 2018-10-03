@@ -92,6 +92,8 @@ exports.userLeave = async (req, res) => {
   }
 };
 
+// TODO --> Agregar chequeo para que sólo el dueño del grupo pueda aceptar y rechazar usuarios
+
 exports.acceptUnconfirmedUser = async (req, res) => {
   const { _id, user } = req.body;
 
