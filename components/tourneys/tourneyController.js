@@ -58,9 +58,19 @@ exports.addUnconfirmedUser = async (req, res) => {
 exports.userLeave = async (req, res) => {
   const { _id, user } = req.body;
 
-  const userWasUnconfirmed = Tourney.findOne({ _id, users_unconfirmed: user });
+  const userWasUnconfirmed = await Tourney.findOne({
+    _id,
+    users_unconfirmed: user
+  });
   if (userWasUnconfirmed) {
     await userWasUnconfirmed.update({ $pull: { users_unconfirmed: user } });
+    return res.status(200).json({ data: 'Abandonaste el Torneo' });
+  }
+
+  const userWasConfirmed = await Tourney.findOne({ _id, users: user });
+
+  if (userWasConfirmed) {
+    await userWasConfirmed.update({ $pull: { users: user } });
     return res.status(200).json({ data: 'Abandonaste el Torneo' });
   }
 };

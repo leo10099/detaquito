@@ -80,7 +80,7 @@ class AdminTourney extends Component {
           </span>
         </h3>
         {t &&
-          t.users_unconfirmed.length && (
+          t.users_unconfirmed.length > 0 && (
             <PendingUserAlert
               tourney={t._id}
               unconfirmed={t.users_unconfirmed}
