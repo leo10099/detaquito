@@ -37,3 +37,8 @@ exports.getUserResults = async (req, res) => {
   const [scores] = await Score.getResultOfGivenRoundAndUser(user, round);
   res.status(200).json(scores);
 };
+
+exports.getAllUserResults = async (req, res) => {
+  const { _id } = req.body;
+  const allUserScores = Score.getMaxListeners.getAllResultsOfGivenUser(_id);
+};

@@ -14,6 +14,7 @@ export default class NewTourney extends Component {
     constinue: false,
     newT: ''
   };
+
   handleSubmit = event => {
     this.setState({ isUploading: true });
     event.preventDefault();
@@ -33,6 +34,20 @@ export default class NewTourney extends Component {
       });
   };
 
+  getNext3Rounds = baseRound => {
+    const times = [1, 2, 3];
+    let jsx = times.map(time => {
+      if (baseRound + time < 26) {
+        return (
+          <option value={baseRound + time} key={time}>
+            Fecha {baseRound + time}
+          </option>
+        );
+      }
+    });
+    return jsx;
+  };
+
   render() {
     const { isUploading, newT } = this.state;
     if (!this.state.continue) {
@@ -41,17 +56,33 @@ export default class NewTourney extends Component {
           <h1 className="dashboard__title">CREAR TORNEO</h1>
           <form onSubmit={this.handleSubmit}>
             <div className="Tourney__New__form">
-              <label htmlFor="name" className="label-inline text-white">
-                <strong>Nombre del Torneo</strong>
-              </label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                className="Tourney__New__input"
-                minLength="4"
-                maxLength="50"
-              />
+              <div className="form-group">
+                <label htmlFor="name" className="label-inline text-white">
+                  <strong>Nombre del Torneo</strong>
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  className="Tourney__New__input"
+                  minLength="4"
+                  maxLength="50"
+                />
+              </div>
+              <div className="form-group">
+                <label
+                  htmlFor="startOnRound"
+                  className="label-inline text-white"
+                >
+                  <strong>Comenzar Competición</strong>
+                </label>
+                <select className="text-white">
+                  <option value="current">La próxima fecha</option>
+                  {this.getNext3Rounds(this.props.conf.round).map(
+                    element => element
+                  )}
+                </select>
+              </div>
             </div>
             <div className="Tourney__New__Button-panel">
               <Button backgroundColor={colors.primary} textColor={colors.white}>
