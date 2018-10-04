@@ -3,7 +3,6 @@ const Tourney = mongoose.model('Tourney');
 
 exports.getTourneyData = async (req, res) => {
   const { _id } = req.params;
-  console.log(_id);
   const tourney = await Tourney.findById({ _id }).populate(
     'users_unconfirmed users'
   );

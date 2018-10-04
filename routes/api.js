@@ -74,6 +74,11 @@ router.get(
   catchErrors(scoreController.getUserResults)
 );
 
+router.get(
+  '/api/fetch/scores/:user',
+  catchErrors(scoreController.getAllUserResults)
+);
+
 // Tourneys
 const tourneyController = require('../components/tourneys/tourneyController');
 
