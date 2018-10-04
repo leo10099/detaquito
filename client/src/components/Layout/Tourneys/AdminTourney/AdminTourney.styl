@@ -90,13 +90,23 @@
     margin-left 1rem
     margin-right 1rem
 
-input[type="text"].Tourney__Admin__Input,input[type="text"]:disabled.Tourney__Admin__Input
+input[type="text"].Tourney__Admin__Input
   color $white !important
   text-align center
   width 25%
   @media screen and (max-width: $tablet)
     display block
     width 75%
+  &:disabled
+    background-color: gray
+    opacity 0.9
+
+select.Tourney__Admin__Input
+  color $white !important
+  &:disabled
+    background-color: gray
+    opacity 0.9
+
 
 .Tourney__Admin__Form-Action
   padding-left 1rem

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-
+import { connect } from 'react-redux';
 import axios from 'axios';
 import toastr from 'toastr';
 
@@ -27,6 +27,21 @@ class AdminTourney extends Component {
   componentDidMount() {
     this.fetchTourneyData();
   }
+
+  getNext3Rounds = baseRound => {
+    const times = [1, 2, 3];
+    console.log(baseRound);
+    let jsx = times.map(time => {
+      if (baseRound + time < 26) {
+        return (
+          <option value={baseRound + time} key={time}>
+            Fecha {baseRound + time}
+          </option>
+        );
+      }
+    });
+    return jsx;
+  };
 
   toggleInput = () => {
     if (this.state.editNameDisabled) {
@@ -56,9 +71,7 @@ class AdminTourney extends Component {
 
   toggleRound = () => {
     if (this.state.editStartOnRoundDisabled) {
-      this.setState({ editStartOnRoundDisabled: false }, () => {
-        this.RoundInput.current.select();
-      });
+      this.setState({ editStartOnRoundDisabled: false });
     } else {
       const { _id: tourney } = this.state.t;
       const { value: newStartOnRound } = this.RoundInput.current;
@@ -66,7 +79,7 @@ class AdminTourney extends Component {
         .patch('/api/update/tourney/round', { tourney, newStartOnRound })
         .then(response =>
           toastr.success(
-            'Cambiaste exitosamente la fecha de inicio de tu Torneo'
+            'Cambiaste exitosamente la Fecha de inicio de tu Torneo'
           )
         )
         .catch(e => {
@@ -114,6 +127,7 @@ class AdminTourney extends Component {
   render() {
     const { t, editNameDisabled, editStartOnRoundDisabled } = this.state;
     const { acceptUser, rejectUser, toggleInput, toggleRound } = this;
+    const { round } = this.props.conf;
     return (
       <section className="Tourney__Admin">
         <h1 className="dashboard__title">GESTIÓN DE TORNEO</h1>
@@ -179,38 +193,42 @@ class AdminTourney extends Component {
                   </span>
                 )}
               </div>
-
-              <div className="form-group">
-                <label
-                  htmlFor="StartOnRound"
-                  className="label-inline text-white"
-                >
-                  Comenzar en la Fecha
-                </label>
-                <input
-                  type="text"
-                  className="Tourney__Admin__Input"
-                  disabled={editStartOnRoundDisabled}
-                  defaultValue={t.start_on_round}
-                  id="StartOnRound"
-                  ref={this.RoundInput}
-                />
-                {editStartOnRoundDisabled ? (
-                  <span
-                    className="Tourney__Admin__Form-Action"
-                    onClick={toggleRound}
-                  >
-                    <i className="fa fa-edit" /> &nbsp; Modificar
-                  </span>
-                ) : (
-                  <span
-                    className="Tourney__Admin__Form-Action"
-                    onClick={toggleRound}
-                  >
-                    <i className="fa fa-save" /> &nbsp; Guardar
-                  </span>
+              {t &&
+                t.start_on_round > round && (
+                  <div className="form-group">
+                    <label
+                      htmlFor="StartOnRound"
+                      className="label-inline text-white"
+                    >
+                      Comenzar en la Fecha
+                    </label>
+                    <select
+                      className="Tourney__Admin__Input"
+                      disabled={editStartOnRoundDisabled}
+                      id="StartOnRound"
+                      ref={this.RoundInput}
+                      defaultValue={t.start_on_round}
+                    >
+                      <option>Fecha {round}</option>
+                      {this.getNext3Rounds(round)}
+                    </select>
+                    {editStartOnRoundDisabled ? (
+                      <span
+                        className="Tourney__Admin__Form-Action"
+                        onClick={toggleRound}
+                      >
+                        <i className="fa fa-edit" /> &nbsp; Modificar
+                      </span>
+                    ) : (
+                      <span
+                        className="Tourney__Admin__Form-Action"
+                        onClick={toggleRound}
+                      >
+                        <i className="fa fa-save" /> &nbsp; Guardar
+                      </span>
+                    )}
+                  </div>
                 )}
-              </div>
             </div>
           </form>
         )}
@@ -219,4 +237,11 @@ class AdminTourney extends Component {
   }
 }
 
-export default withRouter(AdminTourney);
+const mapStateToProps = ({ auth }) => {
+  return { auth };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(withRouter(AdminTourney));
