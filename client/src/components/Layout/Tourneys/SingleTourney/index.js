@@ -8,7 +8,7 @@ import { Card } from '../../../Elements';
 // import PropTypes from 'prop-types';
 import axios from 'axios';
 
-import './singleTourney.styl';
+import './SingleTourney.styl';
 
 class SingleTourney extends Component {
   componentDidMount() {
