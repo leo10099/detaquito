@@ -11,9 +11,34 @@ import axios from 'axios';
 import './SingleTourney.styl';
 
 class SingleTourney extends Component {
-  async componentDidMount() {
-    const t = await this.fetchTourneyDetails();
-    this.fetchMemberData(this.state.t);
+  componentDidMount = async () => {
+    await this.fetchTourneyDetails();
+    // Encontrar las fechas que se van a competir en el Torneo y armar un array con ese rango
+    const rounds_to_compute = this.roundsToCompute(
+      25,
+      this.state.t.start_on_round,
+      this.props.conf.round
+    );
+    // Traer todos los resultados de los miembros dentro de las fechas que se disputa este Torneo
+    rounds_to_compute.map(round => {
+      this.state.t.users.map(user => {
+        axios.get(`/api/fetch/scores/${round}/${user._id}`).then(response => {
+          this.setState({
+            member_scores: [...this.state.member_scores, response.data]
+          });
+        });
+      });
+    });
+  };
+
+  state = {
+    t: null,
+    member_scores: []
+  };
+
+  roundsToCompute(total_rounds, start_on_round, current_round) {
+    let rounds_to_compute = [...Array(total_rounds).keys()];
+    return rounds_to_compute.slice(start_on_round, current_round);
   }
 
   async fetchTourneyDetails() {
@@ -22,18 +47,6 @@ class SingleTourney extends Component {
     const tourney = await axios.get(`/api/fetch/tourney/${_id}`);
     this.setState({ t: tourney.data.tourney });
   }
-
-  async fetchMemberData(t) {
-    t.users.forEach(async member => {
-      const details = await axios.get(`/api/fetch/scores/user/${member._id}`);
-      console.log(details);
-    });
-  }
-
-  state = {
-    t: null,
-    members: []
-  };
 
   render() {
     const { t } = this.state;

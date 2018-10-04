@@ -75,8 +75,8 @@ router.get(
 );
 
 router.get(
-  '/api/fetch/scores/user/:user',
-  catchErrors(scoreController.getAllUserResults)
+  '/api/fetch/scores/:round/:user',
+  catchErrors(scoreController.getUserResults)
 );
 
 // Tourneys
