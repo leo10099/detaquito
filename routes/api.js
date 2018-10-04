@@ -75,7 +75,7 @@ router.get(
 );
 
 router.get(
-  '/api/fetch/scores/:user',
+  '/api/fetch/scores/user/:user',
   catchErrors(scoreController.getAllUserResults)
 );
 

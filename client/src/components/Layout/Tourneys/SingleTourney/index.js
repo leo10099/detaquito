@@ -11,8 +11,9 @@ import axios from 'axios';
 import './SingleTourney.styl';
 
 class SingleTourney extends Component {
-  componentDidMount() {
-    this.fetchTourneyDetails();
+  async componentDidMount() {
+    const t = await this.fetchTourneyDetails();
+    this.fetchMemberData(this.state.t);
   }
 
   async fetchTourneyDetails() {
@@ -22,8 +23,16 @@ class SingleTourney extends Component {
     this.setState({ t: tourney.data.tourney });
   }
 
+  async fetchMemberData(t) {
+    t.users.forEach(async member => {
+      const details = await axios.get(`/api/fetch/scores/user/${member._id}`);
+      console.log(details);
+    });
+  }
+
   state = {
-    t: null
+    t: null,
+    members: []
   };
 
   render() {

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+const ObjectID = mongoose.Types.ObjectId;
 
 const scoreSchema = new mongoose.Schema({
   round: { type: Number, default: 1, required: true },
@@ -14,7 +15,7 @@ scoreSchema.statics.getResultOfGivenRoundAndUser = async function(user, round) {
 };
 
 scoreSchema.statics.getAllResultsOfGivenUser = async function(user) {
-  return his.find({ user });
+  return this.find({ user });
 };
 
 module.exports = mongoose.model('Score', scoreSchema);

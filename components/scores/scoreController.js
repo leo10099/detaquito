@@ -39,7 +39,8 @@ exports.getUserResults = async (req, res) => {
 };
 
 exports.getAllUserResults = async (req, res) => {
-  const { _id } = req.body;
-  const allUserScores = Score.getMaxListeners.getAllResultsOfGivenUser(_id);
+  const { user } = req.params;
+  console.log(user);
+  const allUserScores = await Score.getAllResultsOfGivenUser(user);
   res.send(allUserScores);
 };
