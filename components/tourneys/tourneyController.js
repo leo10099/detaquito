@@ -12,7 +12,7 @@ exports.getTourneyData = async (req, res) => {
 
 exports.createTourney = async (req, res) => {
   const owner = req.user._id;
-  const { name } = req.body;
+  const { name, start_on_round } = req.body;
 
   const number = await Tourney.getNextNumber();
 
@@ -20,11 +20,12 @@ exports.createTourney = async (req, res) => {
     name,
     number,
     owner,
-    users: [owner]
+    users: [owner],
+    start_on_round
   });
   await tourney.save((err, newT) => {
     if (err) {
-      return res.status(400);
+      return res.status(400).json(err);
     }
     res.status(200).json({ data: newT });
   });
@@ -34,7 +35,7 @@ exports.editName = async (req, res) => {
   const { tourney, newName } = req.body;
   const owner = req.user._id;
   const t = await Tourney.findById(tourney);
-  console.log(t.owner, owner);
+
   // Chequear que el cambio lo haga el owner del Torneo
   if (t.owner.toString() != owner) {
     return res
@@ -43,6 +44,25 @@ exports.editName = async (req, res) => {
   }
   // Guardar el nuevo nombre
   t.name = newName;
+  await t.save();
+
+  res.status(200).send(t);
+};
+
+exports.editRoundStart = async (req, res) => {
+  const { tourney, newStartOnRound } = req.body;
+
+  const owner = req.user._id;
+  const t = await Tourney.findById(tourney);
+
+  // Chequear que el cambio lo haga el owner del Torneo
+  if (t.owner.toString() != owner) {
+    return res
+      .status(422)
+      .json({ message: 'Sólo el creador del Torneo puede realizar cambios' });
+  }
+  // Guardar la nueva fecha de inicio
+  t.start_on_round = Number(newStartOnRound);
   await t.save();
 
   res.status(200).send(t);

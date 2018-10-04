@@ -108,6 +108,11 @@ router.patch(
 );
 
 router.patch(
+  '/api/update/tourney/round',
+  catchErrors(tourneyController.editRoundStart)
+);
+
+router.patch(
   '/api/update/tourney/accept',
   catchErrors(tourneyController.acceptUnconfirmedUser)
 );

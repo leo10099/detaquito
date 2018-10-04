@@ -15,7 +15,7 @@ const tourneySchema = new mongoose.Schema({
   users: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
   owner: { type: mongoose.Schema.ObjectId, ref: 'User' },
   users_unconfirmed: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
-  start_on_round: [{ type: mongoose.Schema.ObjectId, ref: 'Round' }]
+  start_on_round: Number
 });
 
 // Devolver cuál sera el siguiente numero de Torneo

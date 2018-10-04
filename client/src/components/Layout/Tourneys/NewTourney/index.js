@@ -20,7 +20,10 @@ export default class NewTourney extends Component {
     event.preventDefault();
 
     axios
-      .post('/api/create/tourney/', { name: event.target.name.value })
+      .post('/api/create/tourney/', {
+        name: event.target.name.value,
+        start_on_round: event.target.start_on_round.value
+      })
       .then(async response => {
         await this.setState({ isUploading: false });
         await this.setState({ newT: response.data.data });
@@ -76,9 +79,15 @@ export default class NewTourney extends Component {
                 >
                   <strong>Comenzar Competición</strong>
                 </label>
-                <select className="text-white">
-                  <option value="current">La próxima fecha</option>
-                  {this.getNext3Rounds(this.props.conf.round).map(
+                <select
+                  className="text-white"
+                  id="startOnRound"
+                  name="start_on_round"
+                >
+                  <option value={this.props.conf.round}>
+                    La próxima fecha
+                  </option>
+                  {this.getNext3Rounds(this.props.conf.round + 1).map(
                     element => element
                   )}
                 </select>
