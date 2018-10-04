@@ -86,7 +86,13 @@ export class Tournaments extends Component {
   };
   render() {
     const { userTourneys } = this.state;
-
+    if (!userTourneys) {
+      return (
+        <div className="loading-container">
+          <PulseLoader color={colors.white} sizeUnit="rem" size={0.8} />
+        </div>
+      );
+    }
     return (
       <section id="Tournaments">
         <h1 className="dashboard__title">Mis Torneos</h1>

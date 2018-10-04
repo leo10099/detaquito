@@ -22,7 +22,10 @@ const AdminNewUserAlert = props => {
                   <div className="Dashboard__Card__unconfirmedUser">
                     {unconfirmedUser.alias}
                     {unconfirmedUser.avatar && (
-                      <img src={unconfirmedUser.avatar} />
+                      <img
+                        src={unconfirmedUser.avatar}
+                        alt={unconfirmedUser.alias}
+                      />
                     )}
                   </div>
                   <div className="Dashboard__Card__unconfirmedUserAdminActions">

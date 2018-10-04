@@ -17,9 +17,7 @@ export default function(WrappedComponent) {
       await checkIfUserConfigIsComplete(props);
     }
     render() {
-      {
-        return this.props.auth && <WrappedComponent {...this.props} />;
-      }
+      return this.props.auth && <WrappedComponent {...this.props} />;
     }
   }
   const mapStateToProps = ({ auth }) => ({ auth });

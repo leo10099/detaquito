@@ -28,8 +28,8 @@ export default class NewTourney extends Component {
       .catch(e => {
         toastr.error(
           'Hubo un error al guardar el Torneo. Intentá más tarde, por favor.'
-        ),
-          this.setState({ isUploading: false });
+        );
+        this.setState({ isUploading: false });
       });
   };
 
@@ -71,8 +71,8 @@ export default class NewTourney extends Component {
           <h1 className="dashboard__title">CREAR TORNEO</h1>
           <h4 className="text-white Tourney__New__feedback">
             Se creó correctamente tu torneo. <br />
-            Para que otros usuarios puedan sumarse pasales el número del mismo:
-            &nbsp;
+            Para que otros usuarios de De Taquito puedan unirse, pasales el
+            siguiente número de Torneo: &nbsp;
             <span className="text-secondary">{newT.number}</span>
             <br />
             <Link to={`/tournament/:${newT._id}/`}>
