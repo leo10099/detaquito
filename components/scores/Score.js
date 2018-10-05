@@ -14,8 +14,4 @@ scoreSchema.statics.getResultOfGivenRoundAndUser = async function(user, round) {
   return this.find({ round, user });
 };
 
-scoreSchema.statics.getAllResultsOfGivenUser = async function(user) {
-  const userScores = this.find({ user });
-};
-
 module.exports = mongoose.model("Score", scoreSchema);
