@@ -6,7 +6,7 @@ import { colors } from "../../../Utilities";
 import { Card } from "../../../Elements";
 import axios from "axios";
 
-import "./SingleTourney.styl";
+import "./singleTourney.styl";
 
 class SingleTourney extends Component {
   componentDidMount = async () => {
