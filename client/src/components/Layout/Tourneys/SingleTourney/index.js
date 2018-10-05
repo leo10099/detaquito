@@ -11,6 +11,7 @@ import "./SingleTourney.styl";
 class SingleTourney extends Component {
   componentDidMount = async () => {
     await this.fetchTourneyDetails();
+
     // Encontrar las fechas que se van a competir en el Torneo y armar un array con ese rango
     const rounds_to_compute = this.roundsToCompute(
       25,
