@@ -18,7 +18,7 @@ class SingleTourney extends Component {
       this.state.t.start_on_round,
       this.props.conf.round
     );
-    // Traer todos los resultados de los miembros dentro de las fechas que se disputa este Torneo
+    // Traer todos los resultados de los miembros dentro de las fechas que se disputa este Torneo.
     rounds_to_compute.map(round => {
       return this.state.t.users.map(user => {
         return axios
