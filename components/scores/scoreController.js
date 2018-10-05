@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
-const Score = mongoose.model('Score');
-const Round = mongoose.model('Round');
-const Prediction = mongoose.model('Prediction');
+const mongoose = require("mongoose");
+const Score = mongoose.model("Score");
+const Round = mongoose.model("Round");
+const Prediction = mongoose.model("Prediction");
 
 exports.calcRoundScores = async (req, res) => {
-  const { calcScore } = require('./score-helpers');
+  const { calcScore } = require("./score-helpers");
   const { round } = req.params;
 
   // Obtener todos los resultados de los partidos
@@ -28,7 +28,7 @@ exports.calcRoundScores = async (req, res) => {
     await score.save();
   });
 
-  res.status(200).send('Se computaron correctamente los resultados');
+  res.status(200).send("Se computaron correctamente los resultados");
 };
 
 exports.getUserResults = async (req, res) => {

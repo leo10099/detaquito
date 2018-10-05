@@ -1,12 +1,12 @@
-import React, { Component, Fragment } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { PulseLoader } from 'react-spinners';
-import { colors } from '../../../Utilities';
-import { Card } from '../../../Elements';
-import axios from 'axios';
+import React, { Component, Fragment } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { PulseLoader } from "react-spinners";
+import { colors } from "../../../Utilities";
+import { Card } from "../../../Elements";
+import axios from "axios";
 
-import './SingleTourney.styl';
+import "./SingleTourney.styl";
 
 class SingleTourney extends Component {
   componentDidMount = async () => {
@@ -45,7 +45,7 @@ class SingleTourney extends Component {
 
   state = {
     t: null,
-    show: 'total',
+    show: "total",
     member_scores: [],
     members_sorted: [],
     isLoading: true
@@ -76,7 +76,7 @@ class SingleTourney extends Component {
       <section className="Single__Tourney">
         <h1 className="dashboard__title">Mis Torneos</h1>
         <h3 className="dashboard__subtitle">{t && t.name}</h3>
-        {show === 'total' && !isLoading ? (
+        {show === "total" && !isLoading ? (
           <Fragment>
             <section className="Single__Tourney__Details">
               <Card className="Single__Tourney__Details__table">
