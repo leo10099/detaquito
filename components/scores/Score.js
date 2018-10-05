@@ -11,7 +11,7 @@ const scoreSchema = new mongoose.Schema({
 
 scoreSchema.statics.getResultOfGivenRoundAndUser = async function(user, round) {
   // Consultar por el resultado de una fecha y un usuario en particular
-  return this.find({ round, user });
+  return this.find({ round, user }).populate('user');
 };
 
 scoreSchema.statics.getAllResultsOfGivenUser = async function(user) {

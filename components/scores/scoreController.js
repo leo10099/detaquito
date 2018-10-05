@@ -33,9 +33,9 @@ exports.calcRoundScores = async (req, res) => {
 
 exports.getUserResults = async (req, res) => {
   const user = req.params.user || req.user._id;
-  console.log(user);
 
   const { round } = req.params;
   const [scores] = await Score.getResultOfGivenRoundAndUser(user, round);
+
   res.status(200).json(scores);
 };

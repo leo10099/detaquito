@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { PulseLoader } from 'react-spinners';
 import { colors } from '../../../Utilities';
 import { Card } from '../../../Elements';
-
-// import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import './SingleTourney.styl';
@@ -21,24 +19,48 @@ class SingleTourney extends Component {
     );
     // Traer todos los resultados de los miembros dentro de las fechas que se disputa este Torneo
     rounds_to_compute.map(round => {
-      this.state.t.users.map(user => {
-        axios.get(`/api/fetch/scores/${round}/${user._id}`).then(response => {
-          this.setState({
-            member_scores: [...this.state.member_scores, response.data]
+      return this.state.t.users.map(user => {
+        return axios
+          .get(`/api/fetch/scores/${round}/${user._id}`)
+          .then(response => {
+            this.setState(
+              {
+                member_scores: [...this.state.member_scores, response.data]
+              },
+              () => {
+                // Si ya se trajeron todos detalles de los usuarios, re ordenarlos
+                if (
+                  this.state.member_scores &&
+                  this.state.t.users &&
+                  this.state.member_scores.length === this.state.t.users.length
+                ) {
+                  return this.reorderByTotal(this.state.member_scores);
+                }
+              }
+            );
           });
-        });
       });
     });
   };
 
   state = {
     t: null,
-    member_scores: []
+    show: 'total',
+    member_scores: [],
+    members_sorted: [],
+    isLoading: true
   };
 
   roundsToCompute(total_rounds, start_on_round, current_round) {
     let rounds_to_compute = [...Array(total_rounds).keys()];
     return rounds_to_compute.slice(start_on_round, current_round);
+  }
+
+  reorderByTotal(arrayOfMembers) {
+    const newArray = arrayOfMembers.sort((a, b) => {
+      return a.total < b.total ? 1 : -1;
+    });
+    newArray && this.setState({ members_sorted: newArray, isLoading: false });
   }
 
   async fetchTourneyDetails() {
@@ -49,15 +71,35 @@ class SingleTourney extends Component {
   }
 
   render() {
-    const { t } = this.state;
+    const { t, members_sorted: members, isLoading, show } = this.state;
     return (
       <section className="Single__Tourney">
         <h1 className="dashboard__title">Mis Torneos</h1>
-        {t ? (
+        <h3 className="dashboard__subtitle">{t && t.name}</h3>
+        {show === 'total' && !isLoading ? (
           <Fragment>
-            <h3 className="dashboard__subtitle">{t.name}</h3>
             <section className="Single__Tourney__Details">
-              <Card style={{ opacity: 0.9 }}>HOLA</Card>
+              <Card className="Single__Tourney__Details__table">
+                <div className="Single__Tourney__Details__th">Ranking</div>
+                <div className="Single__Tourney__Details__th">Miembro</div>
+                <div className="Single__Tourney__Details__th">Puntos</div>
+                {members &&
+                  members.map((member, index) => {
+                    return (
+                      <Fragment key={member._id}>
+                        <div className="Single__Tourney__Details__td">
+                          {index + 1}
+                        </div>
+                        <div className="Single__Tourney__Details__td">
+                          {member.user.alias}
+                        </div>
+                        <div className="Single__Tourney__Details__td">
+                          {member.total}
+                        </div>
+                      </Fragment>
+                    );
+                  })}
+              </Card>
             </section>
           </Fragment>
         ) : (
