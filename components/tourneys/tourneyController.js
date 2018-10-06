@@ -51,6 +51,7 @@ exports.getMembersRankedByTotalPoints = async (req, res) => {
         count: 1,
         alias: "$user.alias",
         avatar: "$user.avatar",
+        fav_team: "$user.fav_team",
         _id: 0
       }
     }
@@ -90,7 +91,8 @@ exports.getMembersRankedByLastRound = async (req, res) => {
         round: 1,
         total: 1,
         alias: "$user.alias",
-        avatar: "$user.avatar"
+        avatar: "$user.avatar",
+        fav_team: "$user.fav_team"
       }
     },
     {
