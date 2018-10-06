@@ -92,6 +92,11 @@ router.get(
   catchErrors(tourneyController.getMembersRankedByTotalPoints)
 );
 
+router.get(
+  "/api/fetch/tourney/ranked/lastround/",
+  catchErrors(tourneyController.getMembersRankedByLastRound)
+);
+
 router.post(
   "/api/create/tourney",
   catchErrors(tourneyController.createTourney)

@@ -20,7 +20,60 @@ exports.getMembersRankedByTotalPoints = async (req, res) => {
 
   rounds_to_compute = rounds_to_compute.slice(tourney.start_on_round, current);
 
-  // Sumar los totales de las fechas correspondientes
+  // Sumar los totales de las fechas correspondientes, sólo si hay fechas a computar
+
+  if (!rounds_to_compute.length) {
+    return res.status(422).json({ message: "El torneo no está activo" });
+  }
+
+  const scores = await Score.aggregate([
+    {
+      $match: {
+        round: {
+          $gte: rounds_to_compute[0],
+          $lte: rounds_to_compute[rounds_to_compute.length - 1]
+        }
+      }
+    },
+    { $group: { _id: "$user", count: { $sum: "$total" } } },
+    { $sort: { count: -1 } },
+    {
+      $lookup: {
+        from: "users",
+        localField: "_id",
+        foreignField: "_id",
+        as: "user"
+      }
+    },
+    { $unwind: "$user" },
+    {
+      $project: {
+        count: 1,
+        alias: "$user.alias",
+        avatar: "$user.avatar",
+        _id: 0
+      }
+    }
+  ]);
+
+  return res.status(200).json({ scores, tourney });
+};
+
+exports.getMembersRankedByLastRound = async (req, res) => {
+  const { _id, current } = req.query;
+
+  let tourney = await Tourney.findById(_id);
+  let rounds_to_compute = [...Array(25).keys()];
+
+  // Encontrar las fechas que se van a competir en el Torneo y armar un array con ese rango
+
+  rounds_to_compute = rounds_to_compute.slice(tourney.start_on_round, current);
+
+  // Consultar por el último resultado, sólo si hay fechas a computar
+
+  if (!rounds_to_compute.length) {
+    return res.status(422).json({ message: "El torneo no está activo" });
+  }
 
   const scores = await Score.aggregate([
     {
@@ -31,19 +84,26 @@ exports.getMembersRankedByTotalPoints = async (req, res) => {
         as: "user"
       }
     },
+    { $unwind: "$user" },
+    {
+      $project: {
+        round: 1,
+        total: 1,
+        alias: "$user.alias",
+        avatar: "$user.avatar"
+      }
+    },
     {
       $match: {
         round: {
-          $gte: rounds_to_compute[0],
-          $lte: rounds_to_compute[rounds_to_compute.length - 1]
+          $eq: rounds_to_compute[rounds_to_compute.length - 1]
         }
       }
     },
-    { $group: { _id: "$user", count: { $sum: "$total" } } },
-    { $sort: { count: -1 } }
+    { $sort: { total: -1 } }
   ]);
-  Score.populate(scores, { path: "users" });
-  res.status(200).json({ scores });
+
+  return res.json({ scores, tourney });
 };
 
 exports.createTourney = async (req, res) => {

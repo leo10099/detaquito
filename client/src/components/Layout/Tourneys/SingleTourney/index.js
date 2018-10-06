@@ -8,11 +8,14 @@ import axios from "axios";
 
 import "./singleTourney.styl";
 
-import "./singleTourney.styl";
-
 class SingleTourney extends Component {
   render() {
-    return <section className="Single__Tourney">HOLA</section>;
+    return (
+      <section className="Single__Tourney">
+        <h1 className="dashboard__title">Mis Torneos</h1>
+        <h3 className="dashboard__subtitle">{t && t.name}</h3>
+      </section>
+    );
   }
 }
 
