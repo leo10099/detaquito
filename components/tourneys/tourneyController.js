@@ -24,6 +24,14 @@ exports.getMembersRankedByTotalPoints = async (req, res) => {
 
   const scores = await Score.aggregate([
     {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "user"
+      }
+    },
+    {
       $match: {
         round: {
           $gte: rounds_to_compute[0],
@@ -34,6 +42,7 @@ exports.getMembersRankedByTotalPoints = async (req, res) => {
     { $group: { _id: "$user", count: { $sum: "$total" } } },
     { $sort: { count: -1 } }
   ]);
+  Score.populate(scores, { path: "users" });
   res.status(200).json({ scores });
 };
 
