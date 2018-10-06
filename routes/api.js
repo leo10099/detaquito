@@ -87,6 +87,11 @@ router.get(
   catchErrors(tourneyController.getTourneyData)
 );
 
+router.get(
+  "/api/fetch/tourney/ranked/totalpoints/",
+  catchErrors(tourneyController.getMembersRankedByTotalPoints)
+);
+
 router.post(
   "/api/create/tourney",
   catchErrors(tourneyController.createTourney)

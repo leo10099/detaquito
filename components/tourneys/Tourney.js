@@ -1,20 +1,20 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const tourneySchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
-    required: 'Se requiere un nombre de Torneo'
+    required: "Se requiere un nombre de Torneo"
   },
   number: {
     type: Number,
-    required: 'Se requiere un número de Torneo',
+    required: "Se requiere un número de Torneo",
     unique: true
   },
-  users: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
-  owner: { type: mongoose.Schema.ObjectId, ref: 'User' },
-  users_unconfirmed: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
+  users: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
+  owner: { type: mongoose.Schema.ObjectId, ref: "User" },
+  users_unconfirmed: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
   start_on_round: Number,
   started: false
 });
@@ -38,4 +38,9 @@ tourneySchema.statics.getUserConfirmedTourneys = async function(user) {
   return docs;
 };
 
-module.exports = mongoose.model('Tourney', tourneySchema);
+tourneySchema.getMembersRankedByTotalPoints = async function(
+  tourney,
+  currentRound
+) {};
+
+module.exports = mongoose.model("Tourney", tourneySchema);

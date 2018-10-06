@@ -1,12 +1,40 @@
-const mongoose = require('mongoose');
-const Tourney = mongoose.model('Tourney');
+const mongoose = require("mongoose");
+const Tourney = mongoose.model("Tourney");
+const Score = mongoose.model("Score");
 
 exports.getTourneyData = async (req, res) => {
   const { _id } = req.params;
   const tourney = await Tourney.findById({ _id }).populate(
-    'users_unconfirmed users'
+    "users_unconfirmed users"
   );
   res.status(200).json({ tourney });
+};
+
+exports.getMembersRankedByTotalPoints = async (req, res) => {
+  const { _id, current } = req.query;
+
+  const tourney = await Tourney.findById(_id);
+  let rounds_to_compute = [...Array(25).keys()];
+
+  // Encontrar las fechas que se van a competir en el Torneo y armar un array con ese rango
+
+  rounds_to_compute = rounds_to_compute.slice(tourney.start_on_round, current);
+
+  // Sumar los totales de las fechas correspondientes
+
+  const scores = await Score.aggregate([
+    {
+      $match: {
+        round: {
+          $gte: rounds_to_compute[0],
+          $lte: rounds_to_compute[rounds_to_compute.length - 1]
+        }
+      }
+    },
+    { $group: { _id: "$user", count: { $sum: "$total" } } },
+    { $sort: { count: -1 } }
+  ]);
+  res.status(200).json({ scores });
 };
 
 exports.createTourney = async (req, res) => {
@@ -39,7 +67,7 @@ exports.editName = async (req, res) => {
   if (t.owner.toString() != owner) {
     return res
       .status(422)
-      .json({ message: 'Sólo el creador del Torneo puede realizar cambios' });
+      .json({ message: "Sólo el creador del Torneo puede realizar cambios" });
   }
   // Guardar el nuevo nombre
   t.name = newName;
@@ -58,7 +86,7 @@ exports.editRoundStart = async (req, res) => {
   if (t.owner.toString() != owner) {
     return res
       .status(422)
-      .json({ message: 'Sólo el creador del Torneo puede realizar cambios' });
+      .json({ message: "Sólo el creador del Torneo puede realizar cambios" });
   }
   // Guardar la nueva fecha de inicio
   t.start_on_round = Number(newStartOnRound);
@@ -86,7 +114,7 @@ exports.addUnconfirmedUser = async (req, res) => {
   if (!tourney) {
     return res
       .status(400)
-      .json({ error: 'El torneo que ingresaste no existe' });
+      .json({ error: "El torneo que ingresaste no existe" });
   }
   res.status(200).json({ tourney });
 };
@@ -100,14 +128,14 @@ exports.userLeave = async (req, res) => {
   });
   if (userWasUnconfirmed) {
     await userWasUnconfirmed.update({ $pull: { users_unconfirmed: user } });
-    return res.status(200).json({ data: 'Abandonaste el Torneo' });
+    return res.status(200).json({ data: "Abandonaste el Torneo" });
   }
 
   const userWasConfirmed = await Tourney.findOne({ _id, users: user });
 
   if (userWasConfirmed) {
     await userWasConfirmed.update({ $pull: { users: user } });
-    return res.status(200).json({ data: 'Abandonaste el Torneo' });
+    return res.status(200).json({ data: "Abandonaste el Torneo" });
   }
 };
 
