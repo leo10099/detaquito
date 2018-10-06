@@ -13,7 +13,7 @@ class SingleTourney extends Component {
     return (
       <section className="Single__Tourney">
         <h1 className="dashboard__title">Mis Torneos</h1>
-        <h3 className="dashboard__subtitle">{t && t.name}</h3>
+        <h3 className="dashboard__subtitle">Nombre del torneo</h3>
       </section>
     );
   }
