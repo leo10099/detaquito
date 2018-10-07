@@ -1,14 +1,14 @@
-import React, { Fragment, Component } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import Button from '../../Elements/Button';
-import { colors } from '../../Utilities';
-import { Card } from '../../Elements/';
-import { PulseLoader } from 'react-spinners';
-import axios from 'axios';
-import toastr from 'toastr';
+import React, { Fragment, Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import Button from "../../Elements/Button";
+import { colors } from "../../Utilities";
+import { Card } from "../../Elements/";
+import { PulseLoader } from "react-spinners";
+import axios from "axios";
+import toastr from "toastr";
 
-import './Tourneys.styl';
+import "./Tourneys.styl";
 
 export class Tournaments extends Component {
   state = {
@@ -28,16 +28,16 @@ export class Tournaments extends Component {
     });
   }
   checkUserStatus = index => {
-    if (index === 'confirmed') {
-      return 'Activo';
+    if (index === "confirmed") {
+      return "Activo";
     } else {
-      return 'Esperando aprobación';
+      return "Esperando aprobación";
     }
   };
 
   userLeave = t_id => {
     axios
-      .patch('/api/update/tourney/leave', {
+      .patch("/api/update/tourney/leave", {
         _id: t_id,
         user: this.props.auth._id
       })
@@ -48,7 +48,7 @@ export class Tournaments extends Component {
       })
       .catch(e => {
         toastr.error(
-          'Hubo un error al abandonar el Torneo. Por favor, intentá más tarde.'
+          "Hubo un error al abandonar el Torneo. Por favor, intentá más tarde."
         );
       });
   };
@@ -56,8 +56,8 @@ export class Tournaments extends Component {
   availableActions = (index, tourneyOwner, id) => {
     return (
       <div className="dashboard__tournaments__list__actions">
-        {index === 'confirmed' && (
-          <Link to={`/tournament/${id}`} className="text-dark">
+        {index === "confirmed" && (
+          <Link to={`/tournament/${id}/lastroundpoints`} className="text-dark">
             <span>
               Detalle &nbsp;
               <i className="fa fa-search baseline text-primary" />
@@ -75,9 +75,9 @@ export class Tournaments extends Component {
         {tourneyOwner !== this.props.auth._id && (
           <span
             onClick={() => this.userLeave(id)}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
           >
-            Abandonar &nbsp;{' '}
+            Abandonar &nbsp;{" "}
             <i className="fa fa-times-circle baseline text-danger" />
           </span>
         )}
