@@ -1,16 +1,12 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import {
   withRouter,
   Link,
   Route,
-  BrowserRouter as Router,
-  Redirect
+  BrowserRouter as Router
 } from "react-router-dom";
 import { connect } from "react-redux";
-import { PulseLoader } from "react-spinners";
 import { colors } from "../../../Utilities";
-import { Card } from "../../../Elements";
-import axios from "axios";
 
 import TotalPoints from "./TourneyTotalPoints";
 import LastRoundPoints from "./TourneyLastRound";
