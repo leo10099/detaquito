@@ -38,10 +38,12 @@
 .info__text-frame
   display grid
   margin auto
-  max-width 62%
+  max-width 50%
   max-height 600px
   position relative
   top 15%
+  @media screen and (min-width:1300px)
+    max-width 62%
   @media screen and (max-width:768px)
     top 10%
   @media screen and (max-width:768px) and (orientation landscape)
