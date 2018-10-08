@@ -23,9 +23,13 @@ class TourneyLastRound extends Component {
         });
       });
   }
-  checkIfScoreBelongsToUser = member => {
-    return this.props.auth._id === member ? { fontWeight: "bold" } : null;
+
+  checkIfScoreBelongsToUser = (auth, member) => {
+    return auth === member
+      ? { fontWeight: "bold", backgroundColor: colors.secondary }
+      : null;
   };
+
   render() {
     const { scores: members } = this.state;
     const { round } = this.props.conf;
@@ -46,19 +50,28 @@ class TourneyLastRound extends Component {
                     <Fragment key={member._id}>
                       <div
                         className="Single__Tourney__Details__td"
-                        style={this.checkIfScoreBelongsToUser(member.user_id)}
+                        style={this.checkIfScoreBelongsToUser(
+                          auth._id,
+                          member.user_id
+                        )}
                       >
                         {index + 1}
                       </div>
                       <div
                         className="Single__Tourney__Details__td"
-                        style={this.checkIfScoreBelongsToUser(member.user_id)}
+                        style={this.checkIfScoreBelongsToUser(
+                          auth._id,
+                          member.user_id
+                        )}
                       >
                         {member.alias}
                       </div>
                       <div
                         className="Single__Tourney__Details__td"
-                        style={this.checkIfScoreBelongsToUser(member.user_id)}
+                        style={this.checkIfScoreBelongsToUser(
+                          auth._id,
+                          member.user_id
+                        )}
                       >
                         {member.total}
                       </div>

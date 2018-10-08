@@ -23,6 +23,13 @@ class TourneyLastRound extends Component {
         });
       });
   }
+
+  checkIfScoreBelongsToUser = member => {
+    return this.props.auth._id === member
+      ? { fontWeight: "bold", backgroundColor: colors.secondary }
+      : null;
+  };
+
   render() {
     const { scores: members } = this.state;
 
@@ -39,13 +46,22 @@ class TourneyLastRound extends Component {
                 members.map((member, index) => {
                   return (
                     <Fragment key={member._id}>
-                      <div className="Single__Tourney__Details__td">
+                      <div
+                        className="Single__Tourney__Details__td"
+                        style={this.checkIfScoreBelongsToUser(member.user_id)}
+                      >
                         {index + 1}
                       </div>
-                      <div className="Single__Tourney__Details__td">
+                      <div
+                        className="Single__Tourney__Details__td"
+                        style={this.checkIfScoreBelongsToUser(member.user_id)}
+                      >
                         {member.alias}
                       </div>
-                      <div className="Single__Tourney__Details__td">
+                      <div
+                        className="Single__Tourney__Details__td"
+                        style={this.checkIfScoreBelongsToUser(member.user_id)}
+                      >
                         {member.count}
                       </div>
                     </Fragment>
@@ -65,8 +81,8 @@ class TourneyLastRound extends Component {
   }
 }
 
-const mapStatetoProps = ({ conf }) => {
-  return { conf };
+const mapStatetoProps = ({ conf, auth }) => {
+  return { conf, auth };
 };
 
 export default connect(
