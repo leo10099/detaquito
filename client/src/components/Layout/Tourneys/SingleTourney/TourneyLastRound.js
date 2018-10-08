@@ -19,7 +19,6 @@ class TourneyLastRound extends Component {
       )
       .then(response => {
         this.setState({
-          tourney: response.data.tourney,
           scores: response.data.scores
         });
       });
