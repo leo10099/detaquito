@@ -1,6 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+
+import { Card } from "../../../Elements";
+
+import "./singleTourney.styl";
 
 class TourneyLastRound extends Component {
   state = {};
@@ -20,9 +24,32 @@ class TourneyLastRound extends Component {
       });
   }
   render() {
+    const { tourney, scores: members } = this.state;
     return (
       <section className="text-white">
-        TOURNEY LAST {this.props.conf.round} POINTS
+        <section className="Single__Tourney__Details">
+          <Card className="Single__Tourney__Details__table">
+            <div className="Single__Tourney__Details__th">RANKING</div>
+            <div className="Single__Tourney__Details__th">MIEMBRO</div>
+            <div className="Single__Tourney__Details__th">PUNTOS</div>
+            {members &&
+              members.map((member, index) => {
+                return (
+                  <Fragment key={member._id}>
+                    <div className="Single__Tourney__Details__td">
+                      {index + 1}
+                    </div>
+                    <div className="Single__Tourney__Details__td">
+                      {/*member.user.alias*/}
+                    </div>
+                    <div className="Single__Tourney__Details__td">
+                      {/*member.total*/}
+                    </div>
+                  </Fragment>
+                );
+              })}
+          </Card>
+        </section>
       </section>
     );
   }

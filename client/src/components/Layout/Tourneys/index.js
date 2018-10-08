@@ -106,9 +106,9 @@ export class Tournaments extends Component {
             userTourneys.unconfirmed.length) && (
             <Card className="dashboard__tornaments__card">
               <section className="dashboard__tournaments__list">
-                <div className="dashboard__tournaments__list-th">Nombre</div>
-                <div className="dashboard__tournaments__list-th">Estado</div>
-                <div className="dashboard__tournaments__list-th">Acciones</div>
+                <div className="dashboard__tournaments__list-th">NOMBRE</div>
+                <div className="dashboard__tournaments__list-th">ESTADO</div>
+                <div className="dashboard__tournaments__list-th">ACCIONES</div>
                 {Object.keys(userTourneys).map(index => {
                   return userTourneys[index].map(t => {
                     return (

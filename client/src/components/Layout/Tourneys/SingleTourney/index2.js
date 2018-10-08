@@ -120,9 +120,9 @@ class SingleTourney extends Component {
             <Fragment>
               <section className="Single__Tourney__Details">
                 <Card className="Single__Tourney__Details__table">
-                  <div className="Single__Tourney__Details__th">Ranking</div>
-                  <div className="Single__Tourney__Details__th">Miembro</div>
-                  <div className="Single__Tourney__Details__th">Puntos</div>
+                  <div className="Single__Tourney__Details__th">RANKING</div>
+                  <div className="Single__Tourney__Details__th">MIEMBRO</div>
+                  <div className="Single__Tourney__Details__th">PUNTOS</div>
                   {members &&
                     members.map((member, index) => {
                       return (
