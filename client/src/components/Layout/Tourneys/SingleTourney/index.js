@@ -1,18 +1,18 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   withRouter,
   Link,
   Route,
   BrowserRouter as Router
-} from "react-router-dom";
-import { connect } from "react-redux";
-import { colors } from "../../../Utilities";
-import { PulseLoader } from "react-spinners";
-import axios from "axios";
-import TotalPoints from "./TourneyTotalPoints";
-import LastRoundPoints from "./TourneyLastRound";
+} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { colors } from '../../../Utilities';
+import { PulseLoader } from 'react-spinners';
+import axios from 'axios';
+import TotalPoints from './TourneyTotalPoints';
+import LastRoundPoints from './TourneyLastRound';
 
-import "./singleTourney.styl";
+import './singleTourney.styl';
 
 class SingleTourney extends Component {
   state = {
@@ -51,7 +51,7 @@ class SingleTourney extends Component {
               style={
                 this.state.showLastRound
                   ? { colors: colors.secondary }
-                  : { color: "whitesmoke" }
+                  : { color: 'whitesmoke' }
               }
             >
               <i className="fa fa-list-ol baseline" />
@@ -65,7 +65,7 @@ class SingleTourney extends Component {
               }}
               style={
                 this.state.showLastRound
-                  ? { color: "whitesmoke" }
+                  ? { color: 'whitesmoke' }
                   : { colors: colors.secondary }
               }
             >

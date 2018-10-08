@@ -1,11 +1,24 @@
-const mongoose = require("mongoose");
-const Tourney = mongoose.model("Tourney");
-const Score = mongoose.model("Score");
+const mongoose = require('mongoose');
+const Tourney = mongoose.model('Tourney');
+const Score = mongoose.model('Score');
+const Team = mongoose.model('Team');
+
+replaceNonAvatarWithClubBadge = async objectOfMembers => {
+  const baseUrl = '/static/img/clubes/';
+
+  for (score in objectOfMembers) {
+    if (!objectOfMembers[score].hasOwnProperty('avatar')) {
+      const badge = await Team.getBadge(objectOfMembers[score].fav_team);
+      objectOfMembers[score].avatar = baseUrl + badge;
+    }
+  }
+  return objectOfMembers;
+};
 
 exports.getTourneyData = async (req, res) => {
   const { _id } = req.params;
   const tourney = await Tourney.findById({ _id }).populate(
-    "users_unconfirmed users"
+    'users_unconfirmed users'
   );
   res.status(200).json({ tourney });
 };
@@ -23,10 +36,10 @@ exports.getMembersRankedByTotalPoints = async (req, res) => {
   // Sumar los totales de las fechas correspondientes, sólo si hay fechas a computar
 
   if (!rounds_to_compute.length) {
-    return res.status(422).json({ message: "El torneo no está activo" });
+    return res.status(422).json({ message: 'El torneo no está activo' });
   }
 
-  const scores = await Score.aggregate([
+  let scores = await Score.aggregate([
     {
       $match: {
         round: {
@@ -35,29 +48,32 @@ exports.getMembersRankedByTotalPoints = async (req, res) => {
         }
       }
     },
-    { $group: { _id: "$user", count: { $sum: "$total" } } },
+    { $group: { _id: '$user', count: { $sum: '$total' } } },
     { $sort: { count: -1 } },
     {
       $lookup: {
-        from: "users",
-        localField: "_id",
-        foreignField: "_id",
-        as: "user"
+        from: 'users',
+        localField: '_id',
+        foreignField: '_id',
+        as: 'user'
       }
     },
-    { $unwind: "$user" },
+    { $unwind: '$user' },
     {
       $project: {
         count: 1,
-        user_id: "$user._id",
-        alias: "$user.alias",
-        avatar: "$user.avatar",
-        fav_team: "$user.fav_team"
+        user_id: '$user._id',
+        alias: '$user.alias',
+        avatar: '$user.avatar',
+        fav_team: '$user.fav_team'
       }
     }
   ]);
 
-  return res.status(200).json({ scores, tourney });
+  // Si el usuario no subió un avatar, reemplazarlo con el escudo del cuadro del que es hincha
+  const ranked = await replaceNonAvatarWithClubBadge(scores);
+
+  return res.status(200).json({ ranked });
 };
 
 exports.getMembersRankedByLastRound = async (req, res) => {
@@ -73,27 +89,27 @@ exports.getMembersRankedByLastRound = async (req, res) => {
   // Consultar por el último resultado, sólo si hay fechas a computar
 
   if (!rounds_to_compute.length) {
-    return res.status(422).json({ message: "El torneo no está activo" });
+    return res.status(422).json({ message: 'El torneo no está activo' });
   }
 
   const scores = await Score.aggregate([
     {
       $lookup: {
-        from: "users",
-        localField: "user",
-        foreignField: "_id",
-        as: "user"
+        from: 'users',
+        localField: 'user',
+        foreignField: '_id',
+        as: 'user'
       }
     },
-    { $unwind: "$user" },
+    { $unwind: '$user' },
     {
       $project: {
         round: 1,
         total: 1,
-        user_id: "$user._id",
-        alias: "$user.alias",
-        avatar: "$user.avatar",
-        fav_team: "$user.fav_team"
+        user_id: '$user._id',
+        alias: '$user.alias',
+        avatar: '$user.avatar',
+        fav_team: '$user.fav_team'
       }
     },
     {
@@ -106,7 +122,10 @@ exports.getMembersRankedByLastRound = async (req, res) => {
     { $sort: { total: -1 } }
   ]);
 
-  return res.json({ scores, tourney });
+  // Si el usuario no subió un avatar, reemplazarlo con el escudo del cuadro del que es hincha
+  const ranked = await replaceNonAvatarWithClubBadge(scores);
+
+  return res.status(200).json({ ranked });
 };
 
 exports.createTourney = async (req, res) => {
@@ -139,7 +158,7 @@ exports.editName = async (req, res) => {
   if (t.owner.toString() != owner) {
     return res
       .status(422)
-      .json({ message: "Sólo el creador del Torneo puede realizar cambios" });
+      .json({ message: 'Sólo el creador del Torneo puede realizar cambios' });
   }
   // Guardar el nuevo nombre
   t.name = newName;
@@ -158,7 +177,7 @@ exports.editRoundStart = async (req, res) => {
   if (t.owner.toString() != owner) {
     return res
       .status(422)
-      .json({ message: "Sólo el creador del Torneo puede realizar cambios" });
+      .json({ message: 'Sólo el creador del Torneo puede realizar cambios' });
   }
   // Guardar la nueva fecha de inicio
   t.start_on_round = Number(newStartOnRound);
@@ -186,7 +205,7 @@ exports.addUnconfirmedUser = async (req, res) => {
   if (!tourney) {
     return res
       .status(400)
-      .json({ error: "El torneo que ingresaste no existe" });
+      .json({ error: 'El torneo que ingresaste no existe' });
   }
   res.status(200).json({ tourney });
 };
@@ -200,14 +219,14 @@ exports.userLeave = async (req, res) => {
   });
   if (userWasUnconfirmed) {
     await userWasUnconfirmed.update({ $pull: { users_unconfirmed: user } });
-    return res.status(200).json({ data: "Abandonaste el Torneo" });
+    return res.status(200).json({ data: 'Abandonaste el Torneo' });
   }
 
   const userWasConfirmed = await Tourney.findOne({ _id, users: user });
 
   if (userWasConfirmed) {
     await userWasConfirmed.update({ $pull: { users: user } });
-    return res.status(200).json({ data: "Abandonaste el Torneo" });
+    return res.status(200).json({ data: 'Abandonaste el Torneo' });
   }
 };
 

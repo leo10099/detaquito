@@ -16,8 +16,14 @@ teamSchema.index({
 
 teamSchema.statics.allTeamsNames = async function() {
   const allTeams = await this.find({}, 'name');
-  //return allTeams.map(team => team.name);
+
   return allTeams;
+};
+
+teamSchema.statics.getBadge = async function(_id) {
+  const team = await this.findById(_id);
+
+  return team.logo;
 };
 
 module.exports = mongoose.model('Team', teamSchema);

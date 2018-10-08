@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from "react";
-import axios from "axios";
-import { connect } from "react-redux";
-import { Card } from "../../../Elements";
-import { colors } from "../../../Utilities";
-import { PulseLoader } from "react-spinners";
+import React, { Component, Fragment } from 'react';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { Card } from '../../../Elements';
+import { colors } from '../../../Utilities';
+import { PulseLoader } from 'react-spinners';
 
-import "./singleTourney.styl";
+import './singleTourney.styl';
 
 class TourneyLastRound extends Component {
   state = {};
@@ -19,14 +19,14 @@ class TourneyLastRound extends Component {
       )
       .then(response => {
         this.setState({
-          scores: response.data.scores
+          scores: response.data.ranked
         });
       });
   }
 
   checkIfScoreBelongsToUser = member => {
     return this.props.auth._id === member
-      ? { fontWeight: "bold", backgroundColor: colors.secondary }
+      ? { fontWeight: 'bold', backgroundColor: colors.secondary }
       : null;
   };
 
@@ -38,35 +38,38 @@ class TourneyLastRound extends Component {
         <section className="text-white">
           <h3 className="dashboard__lead">TABLA DE POSICIONES GENERAL</h3>
           <section className="Single__Tourney__Details">
-            <Card className="Single__Tourney__Details__table">
-              <div className="Single__Tourney__Details__th">RANKING</div>
-              <div className="Single__Tourney__Details__th">MIEMBRO</div>
-              <div className="Single__Tourney__Details__th">PUNTOS</div>
-              {members &&
-                members.map((member, index) => {
-                  return (
-                    <Fragment key={member._id}>
-                      <div
-                        className="Single__Tourney__Details__td"
-                        style={this.checkIfScoreBelongsToUser(member.user_id)}
-                      >
-                        {index + 1}
-                      </div>
-                      <div
-                        className="Single__Tourney__Details__td"
-                        style={this.checkIfScoreBelongsToUser(member.user_id)}
-                      >
-                        {member.alias}
-                      </div>
-                      <div
-                        className="Single__Tourney__Details__td"
-                        style={this.checkIfScoreBelongsToUser(member.user_id)}
-                      >
-                        {member.count}
-                      </div>
-                    </Fragment>
-                  );
-                })}
+            <Card style={{ opacity: '0.9' }}>
+              <section className="Single__Tourney__Details__table">
+                <div className="Single__Tourney__Details__th">RANKING</div>
+                <div className="Single__Tourney__Details__th">MIEMBRO</div>
+                <div className="Single__Tourney__Details__th">PUNTOS</div>
+                {members &&
+                  members.map((member, index) => {
+                    return (
+                      <Fragment key={member._id}>
+                        <div
+                          className="Single__Tourney__Details__td"
+                          style={this.checkIfScoreBelongsToUser(member.user_id)}
+                        >
+                          {index + 1}
+                        </div>
+                        <div
+                          className="Single__Tourney__Details__td"
+                          style={this.checkIfScoreBelongsToUser(member.user_id)}
+                        >
+                          <img src={member.avatar} />
+                          {member.alias}
+                        </div>
+                        <div
+                          className="Single__Tourney__Details__td"
+                          style={this.checkIfScoreBelongsToUser(member.user_id)}
+                        >
+                          {member.count}
+                        </div>
+                      </Fragment>
+                    );
+                  })}
+              </section>
             </Card>
           </section>
         </section>
