@@ -43,8 +43,6 @@
   padding-top 4.4rem
   @media screen and (min-width:1300px)
     max-width 62%
-  @media screen and (max-width:768px)
-    top 10%
   @media screen and (max-width:768px) and (orientation landscape)
     top -25%
     font-weight: bold
@@ -60,9 +58,16 @@
     font-size 0.8rem
   @media screen and (max-height:800px)
     font-size 0.6rem
+  @media screen and (max-width:768px)
+    padding-top 2.6rem
+    max-width: 63% !important
+    word-wrap break-word
+    font-weight: normal !important
+    font-size 0.5rem
 .info__text-frame--highligth
     color lighten($violet, 20%)
     font-weight bolder
+
 
 .info__text-frame__title
   font-family Rustica
@@ -88,15 +93,13 @@
       color $secondary !important
       letter-spacing: 4px !important
       padding-right 10px
-
 .info__text-frame--foter > a
   font-weight bold
   color lighten($violet, 20%)
   font-size 1rem
   @media screen and (max-width:768px)
     font-size 0.8rem
-  letter-spacing 1px
-
+    letter-spacing 1px
 .info__text-frame--foter > a:hover
   color lighten($violet, 30%)
 
