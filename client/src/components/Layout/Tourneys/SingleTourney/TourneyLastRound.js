@@ -23,10 +23,15 @@ class TourneyLastRound extends Component {
         });
       });
   }
+  checkIfScoreBelongsToUser = member => {
+    return this.props.auth._id === member ? { fontWeight: "bold" } : null;
+  };
   render() {
     const { scores: members } = this.state;
     const { round } = this.props.conf;
-    if (round && members && members.length) {
+    const { auth } = this.props;
+
+    if (auth && round && members && members.length) {
       return (
         <section className="text-white">
           <h3 className="dashboard__lead">PUNTAJES DE LA FECHA Nº {round}</h3>
@@ -39,13 +44,22 @@ class TourneyLastRound extends Component {
                 members.map((member, index) => {
                   return (
                     <Fragment key={member._id}>
-                      <div className="Single__Tourney__Details__td">
+                      <div
+                        className="Single__Tourney__Details__td"
+                        style={this.checkIfScoreBelongsToUser(member.user_id)}
+                      >
                         {index + 1}
                       </div>
-                      <div className="Single__Tourney__Details__td">
+                      <div
+                        className="Single__Tourney__Details__td"
+                        style={this.checkIfScoreBelongsToUser(member.user_id)}
+                      >
                         {member.alias}
                       </div>
-                      <div className="Single__Tourney__Details__td">
+                      <div
+                        className="Single__Tourney__Details__td"
+                        style={this.checkIfScoreBelongsToUser(member.user_id)}
+                      >
                         {member.total}
                       </div>
                     </Fragment>
@@ -65,8 +79,8 @@ class TourneyLastRound extends Component {
   }
 }
 
-const mapStatetoProps = ({ conf }) => {
-  return { conf };
+const mapStatetoProps = ({ auth, conf }) => {
+  return { auth, conf };
 };
 
 export default connect(
