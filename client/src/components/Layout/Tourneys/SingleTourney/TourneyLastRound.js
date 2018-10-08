@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-
 import { Card } from "../../../Elements";
+import { colors } from "../../../Utilities";
+import { PulseLoader } from "react-spinners";
 
 import "./singleTourney.styl";
 
@@ -24,34 +25,44 @@ class TourneyLastRound extends Component {
       });
   }
   render() {
-    const { tourney, scores: members } = this.state;
-    return (
-      <section className="text-white">
-        <section className="Single__Tourney__Details">
-          <Card className="Single__Tourney__Details__table">
-            <div className="Single__Tourney__Details__th">RANKING</div>
-            <div className="Single__Tourney__Details__th">MIEMBRO</div>
-            <div className="Single__Tourney__Details__th">PUNTOS</div>
-            {members &&
-              members.map((member, index) => {
-                return (
-                  <Fragment key={member._id}>
-                    <div className="Single__Tourney__Details__td">
-                      {index + 1}
-                    </div>
-                    <div className="Single__Tourney__Details__td">
-                      {/*member.user.alias*/}
-                    </div>
-                    <div className="Single__Tourney__Details__td">
-                      {/*member.total*/}
-                    </div>
-                  </Fragment>
-                );
-              })}
-          </Card>
+    const { scores: members } = this.state;
+    const { round } = this.props.conf;
+    if (round && members && members.length) {
+      return (
+        <section className="text-white">
+          <h3 className="dashboard__lead">PUNTAJES DE LA FECHA Nº {round}</h3>
+          <section className="Single__Tourney__Details">
+            <Card className="Single__Tourney__Details__table">
+              <div className="Single__Tourney__Details__th">RANKING</div>
+              <div className="Single__Tourney__Details__th">MIEMBRO</div>
+              <div className="Single__Tourney__Details__th">PUNTOS</div>
+              {members &&
+                members.map((member, index) => {
+                  return (
+                    <Fragment key={member._id}>
+                      <div className="Single__Tourney__Details__td">
+                        {index + 1}
+                      </div>
+                      <div className="Single__Tourney__Details__td">
+                        {member.alias}
+                      </div>
+                      <div className="Single__Tourney__Details__td">
+                        {member.total}
+                      </div>
+                    </Fragment>
+                  );
+                })}
+            </Card>
+          </section>
         </section>
-      </section>
-    );
+      );
+    } else {
+      return (
+        <div className="loading-container">
+          <PulseLoader color={colors.white} sizeUnit="rem" size={0.8} />
+        </div>
+      );
+    }
   }
 }
 
