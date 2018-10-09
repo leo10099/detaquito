@@ -26,7 +26,7 @@ class TourneyLastRound extends Component {
 
   checkIfScoreBelongsToUser = member => {
     return this.props.auth._id === member
-      ? { fontWeight: 'bold', backgroundColor: colors.secondary }
+      ? { backgroundColor: colors.secondary }
       : null;
   };
 
@@ -40,7 +40,7 @@ class TourneyLastRound extends Component {
           <section className="Single__Tourney__Details">
             <Card style={{ opacity: '0.9' }}>
               <section className="Single__Tourney__Details__table">
-                <div className="Single__Tourney__Details__th">RANKING</div>
+                <div className="Single__Tourney__Details__th">Nº</div>
                 <div className="Single__Tourney__Details__th">MIEMBRO</div>
                 <div className="Single__Tourney__Details__th">PUNTOS</div>
                 {members &&
