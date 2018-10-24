@@ -57,12 +57,12 @@ const items = [
         &nbsp; Mis Resultados
       </Link>
     </li>
-    <li className="dashboard__sidebar-nav__item">
+    { /*<li className="dashboard__sidebar-nav__item">
       <Link to="/rankings">
         {' '}
         <i className="fas fa-award" /> &nbsp; Rankings
       </Link>
-    </li>
+</li>*/}
     <li className="dashboard__sidebar-nav__item">
       <Link to="/tournaments">
         <i className="fas fa-trophy" /> &nbsp; Mis Torneos

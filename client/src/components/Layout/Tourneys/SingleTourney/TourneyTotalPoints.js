@@ -57,7 +57,7 @@ class TourneyLastRound extends Component {
                           className="Single__Tourney__Details__td"
                           style={this.checkIfScoreBelongsToUser(member.user_id)}
                         >
-                          <img src={member.avatar} />
+                          <img src={member.avatar} alt={member.alias} />
                           {member.alias}
                         </div>
                         <div
